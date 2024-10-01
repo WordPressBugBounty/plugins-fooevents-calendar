@@ -3,10 +3,10 @@ Contributors: fooevents, etiennestemmet, jasondugmore, robiin, colin82, lidias
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: calendar, events, events calendar, event, tickets
-Tested up to: 6.4
+Tested up to: 6.6
 Requires at least: 6.0
-Stable tag: 1.7.3
-Requires PHP: 7.2.5
+Stable tag: 1.7.4
+Requires PHP: 7.3
 
 The simplest way to display any post, page or custom post type in a dynamic events calendar on your WordPress website.
 
@@ -184,17 +184,22 @@ We believe in the ‘pay it forward’ approach to business and life. As such, w
 
 == Changelog ==
 
+= 1.7.4 =
+* NEW: FooEvents Calendar block. *
+* FIXED: Various small bugs. *
+* TESTED ON: Wordpress 6.6.2 and WooCommerce 9.3.3. *
+
 = 1.7.3 =
 
-*FIXED: Various bookings bugs.*
-*FIXED: Shortcode 'num' attribute not working.*
-*FIXED: Various other small bugs.*
-*TESTED ON: WordPress 6.5.3 and WooCommerce 8.9.1.*
+* FIXED: Various bookings bugs. *
+* FIXED: Shortcode 'num' attribute not working. *
+* FIXED: Various other small bugs. *
+* TESTED ON: WordPress 6.5.3 and WooCommerce 8.9.1. *
 
 = 1.7.1 =
 
-*FIXED: Various small bugs.*
-*TESTED ON: WordPress 6.4.3 and WooCommerce 8.6.1.*
+* FIXED: Various small bugs. *
+* TESTED ON: WordPress 6.4.3 and WooCommerce 8.6.1. *
 
 = 1.7.0 =
 

@@ -13,7 +13,7 @@
 (function($) {
 	var localObj = '<?php echo $local_args['json_events']; ?>';
 	var settings = JSON.parse(localObj);    
-	if( $('#'+settings.id).length ) {
+	if( jQuery('#'+settings.id).length ) {
 		jQuery('#'+settings.id).fullCalendar(settings);
 	} 
 })(jQuery);

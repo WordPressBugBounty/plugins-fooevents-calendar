@@ -48,7 +48,6 @@ class FooEvents_Calendar {
 		add_filter( 'plugin_action_links_fooevents-calendar/fooevents-calendar.php', array( $this, 'plugins_settings_link' ) );
 
 		$this->plugin_init();
-
 	}
 
 	public function plugins_settings_link( $links ) {
@@ -62,7 +61,6 @@ class FooEvents_Calendar {
 		);
 
 		return $links;
-
 	}
 
 	/**
@@ -105,7 +103,6 @@ class FooEvents_Calendar {
 			wp_enqueue_style( 'fooevents-calendar-list-dark-card', $this->config->stylesPath . 'fooevents-list-dark-card.css', array(), $this->config->plugin_data['Version'] );
 
 		}
-
 	}
 
 	/**
@@ -118,7 +115,6 @@ class FooEvents_Calendar {
 		wp_enqueue_script( 'fooevents-calendar-moment', $this->config->scriptsPath . 'moment.js', array( 'jquery' ), '2.29.3', false );
 		wp_enqueue_script( 'fooevents-calendar-full-callendar', $this->config->scriptsPath . 'fullcalendar.min.js', array( 'jquery' ), '1.0.0', false );
 		wp_enqueue_script( 'fooevents-calendar-full-callendar-locale', $this->config->scriptsPath . 'locale-all.js', array( 'jquery' ), '1.0.0', false );
-
 	}
 
 	/**
@@ -133,6 +129,9 @@ class FooEvents_Calendar {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'fooevents-calendar-admin-script', $this->config->scriptsPath . 'calendar-admin.js', array( 'jquery', 'jquery-ui-datepicker', 'wp-color-picker' ), $this->config->plugin_data['Version'], true );
+		wp_enqueue_script( 'fooevents-calendar-moment', $this->config->scriptsPath . 'moment.js', array( 'jquery' ), '2.29.3', false );
+		wp_enqueue_script( 'fooevents-calendar-full-callendar', $this->config->scriptsPath . 'fullcalendar.min.js', array( 'jquery' ), '1.0.0', false );
+		wp_enqueue_script( 'fooevents-calendar-full-callendar-locale', $this->config->scriptsPath . 'locale-all.js', array( 'jquery' ), '1.0.0', false );
 
 		$calendar_local_args = array(
 			'closeText'       => __( 'Done', 'fooevents-calendar' ),
@@ -149,7 +148,6 @@ class FooEvents_Calendar {
 		);
 
 		wp_localize_script( 'fooevents-calendar-admin-script', 'localObj', $calendar_local_args );
-
 	}
 
 	/**
@@ -178,6 +176,42 @@ class FooEvents_Calendar {
 
 		}
 
+		wp_enqueue_style( 'fooevents-calendar-full-callendar-style', $this->config->stylesPath . 'fullcalendar.css', array(), '1.0.0' );
+		wp_enqueue_style( 'fooevents-calendar-full-callendar-print-style', $this->config->stylesPath . 'fullcalendar.print.css', array(), '1.0.0', 'print' );
+		wp_enqueue_style( 'fooevents-calendar-full-callendar-styles', $this->config->stylesPath . 'style.css', array(), '1.0.1' );
+
+		$calendar_theme = get_option( 'globalFooEventsCalendarTheme', true );
+
+		if ( 'light' === $calendar_theme ) {
+
+			wp_enqueue_style( 'fooevents-calendar-full-callendar-light', $this->config->stylesPath . 'fooevents-fullcalendar-light.css', array(), $this->config->plugin_data['Version'] );
+
+		} elseif ( 'dark' === $calendar_theme ) {
+
+			wp_enqueue_style( 'fooevents-calendar-full-callendar-dark', $this->config->stylesPath . 'fooevents-fullcalendar-dark.css', array(), $this->config->plugin_data['Version'] );
+
+		} elseif ( 'flat' === $calendar_theme ) {
+
+			wp_enqueue_style( 'fooevents-calendar-full-callendar-flat', $this->config->stylesPath . 'fooevents-fullcalendar-flat.css', array(), $this->config->plugin_data['Version'] );
+
+		} elseif ( 'minimalist' === $calendar_theme ) {
+
+			wp_enqueue_style( 'fooevents-calendar-full-callendar-minimalist', $this->config->stylesPath . 'fooevents-fullcalendar-minimalist.css', array(), $this->config->plugin_data['Version'] );
+
+		}
+
+		$list_theme = get_option( 'globalFooEventsCalendarListTheme', true );
+
+		if ( 'light-card' === $list_theme ) {
+
+			wp_enqueue_style( 'fooevents-calendar-list-light-card', $this->config->stylesPath . 'fooevents-list-light-card.css', array(), $this->config->plugin_data['Version'] );
+
+		} elseif ( 'dark-card' === $list_theme ) {
+
+			wp_enqueue_style( 'fooevents-calendar-list-dark-card', $this->config->stylesPath . 'fooevents-list-dark-card.css', array(), $this->config->plugin_data['Version'] );
+
+		}
+
 	}
 
 	/**
@@ -195,7 +229,6 @@ class FooEvents_Calendar {
 		}
 
 				$this->config->plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/fooevents-calendar/fooevents-calendar.php' );
-
 	}
 
 	/**
@@ -232,7 +265,6 @@ class FooEvents_Calendar {
 			remove_submenu_page( 'fooevents', 'fooevents' );
 
 		}
-
 	}
 
 	/**
@@ -247,7 +279,6 @@ class FooEvents_Calendar {
 		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsCalendarListTheme' );
 		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsCalendarPostTypes' );
 		register_setting( 'fooevents-settings-integration', 'globalFooEventsEventbriteToken' );
-
 	}
 
 	/**
@@ -272,7 +303,6 @@ class FooEvents_Calendar {
 			$this->display_calendar_settings();
 
 		}
-
 	}
 
 	/**
@@ -283,7 +313,6 @@ class FooEvents_Calendar {
 		$calendar_options = $this->get_calendar_options();
 
 		require $this->config->templatePath . 'calendar-options-layout.php';
-
 	}
 
 	/**
@@ -326,7 +355,6 @@ class FooEvents_Calendar {
 		require $this->config->templatePath . 'calendar-options.php';
 
 		return ob_get_clean();
-
 	}
 
 	/**
@@ -341,7 +369,6 @@ class FooEvents_Calendar {
 		require $this->config->templatePath . 'calendar-options-eventbrite.php';
 
 		return ob_get_clean();
-
 	}
 
 	/**
@@ -366,7 +393,6 @@ class FooEvents_Calendar {
 			);
 
 		}
-
 	}
 
 	/**
@@ -375,7 +401,6 @@ class FooEvents_Calendar {
 	public function include_widgets() {
 
 		require 'classes/class-fooevents-calendar-widget.php';
-
 	}
 
 	/**
@@ -403,7 +428,6 @@ class FooEvents_Calendar {
 			);
 
 		}
-
 	}
 
 	/**
@@ -508,7 +532,6 @@ class FooEvents_Calendar {
 		require $this->config->templatePath . 'eventmetabox.php';
 
 		wp_nonce_field( 'fooevents_metabox_nonce', 'fooevents_metabox_nonce' );
-
 	}
 
 	/**
@@ -535,7 +558,6 @@ class FooEvents_Calendar {
 		$eventbrite_option = ob_get_clean();
 
 		return $eventbrite_option;
-
 	}
 
 	/**
@@ -571,13 +593,9 @@ class FooEvents_Calendar {
 				return;
 
 			}
-		} else {
-
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
 
 				return;
-
-			}
 		}
 
 		if ( isset( $_POST['WooCommerceEventsNonProductEvent'] ) ) {
@@ -840,7 +858,6 @@ class FooEvents_Calendar {
 
 			}
 		}
-
 	}
 
 	/**
@@ -1055,7 +1072,6 @@ class FooEvents_Calendar {
 		}
 
 		session_write_close();
-
 	}
 
 	/**
@@ -1146,7 +1162,7 @@ class FooEvents_Calendar {
 						$post_id = wp_insert_post( $post );
 						update_post_meta( $post_id, 'WooCommerceEventsEventbriteID', $event['id'] );
 
-						$added_events++;
+						++$added_events;
 
 					} else {
 
@@ -1162,7 +1178,7 @@ class FooEvents_Calendar {
 
 						$post_id = wp_update_post( $post );
 
-						$updated_events++;
+						++$updated_events;
 
 					}
 
@@ -1183,7 +1199,6 @@ class FooEvents_Calendar {
 		/* translators: %1$d is replaced with the number of events added. %2$d is replaced with the number of events updated */
 		printf( esc_attr( __( '%1$d events added. %2$d events updated.', 'fooevents-calendar' ) ), esc_attr( $added_events ), esc_attr( $updated_events ) );
 		exit();
-
 	}
 
 	/**
@@ -1220,7 +1235,6 @@ class FooEvents_Calendar {
 		}
 
 		return $return_ids;
-
 	}
 
 	/**
@@ -1277,7 +1291,6 @@ class FooEvents_Calendar {
 		$event_output = ob_get_clean();
 
 		return $event_output;
-
 	}
 
 	/**
@@ -1428,7 +1441,6 @@ class FooEvents_Calendar {
 			return $event_list;
 
 		}
-
 	}
 
 	/**
@@ -1609,7 +1621,6 @@ class FooEvents_Calendar {
 			return $calendar;
 
 		}
-
 	}
 
 	/**
@@ -1645,7 +1656,6 @@ class FooEvents_Calendar {
 			}
 		}
 		return $events;
-
 	}
 
 	/**
@@ -1685,7 +1695,6 @@ class FooEvents_Calendar {
 		$t2 = strtotime( $b['start'] );
 
 		return $t1 - $t2;
-
 	}
 
 	/**
@@ -1725,7 +1734,6 @@ class FooEvents_Calendar {
 		$t1 = strtotime( $b['start'] );
 
 		return $t1 - $t2;
-
 	}
 
 	/**
@@ -1772,7 +1780,6 @@ class FooEvents_Calendar {
 		$events = new WP_Query( $args );
 
 		return $events->get_posts();
-
 	}
 
 	/**
@@ -1829,7 +1836,6 @@ class FooEvents_Calendar {
 		$events = new WP_Query( $args );
 
 		return $events->get_posts();
-
 	}
 
 	/**
@@ -1949,7 +1955,7 @@ class FooEvents_Calendar {
 			if ( 'select' === $multi_day_type ) {
 
 				unset( $json_events['events'][ $x ] );
-				$x--;
+				--$x;
 
 			}
 
@@ -1997,7 +2003,7 @@ class FooEvents_Calendar {
 
 							}
 
-							$x++;
+							++$x;
 
 							$event_date = '';
 							if ( isset( $multi_day_hours[ $y ] ) && isset( $multi_day_minutes[ $y ] ) ) {
@@ -2076,36 +2082,30 @@ class FooEvents_Calendar {
 
 							}
 
-							$y++;
-							$z++;
+							++$y;
+							++$z;
 
 						}
-					} else {
-
-						if ( ! empty( $event_end_date ) ) {
+					} elseif ( ! empty( $event_end_date ) ) {
 
 							$event_end_date_formatted = $fooevents_multiday_events->format_end_date( $event->ID, '', $display_type );
 
-							if ( 'yes' !== $event_start_day ) {
+						if ( 'yes' !== $event_start_day ) {
 
-								$json_events['events'][ $x ]['end']                 = $event_end_date_formatted;
-								$json_events['events'][ $x ]['unformated_end_date'] = $event_end_date;
-
-							}
-						}
-					}
-				} else {
-
-					if ( ! empty( $event_end_date ) ) {
-
-						$event_end_date_formatted = $fooevents_multiday_events->format_end_date( $event->ID, true, $display_type );
-
-						if ( ( 'calendar' !== $event_start_day && 'both' !== $event_start_day ) ) {
-
-								$json_events['events'][ $x ]['end']             = $event_end_date_formatted;
+							$json_events['events'][ $x ]['end']                 = $event_end_date_formatted;
 							$json_events['events'][ $x ]['unformated_end_date'] = $event_end_date;
 
 						}
+					}
+				} elseif ( ! empty( $event_end_date ) ) {
+
+						$event_end_date_formatted = $fooevents_multiday_events->format_end_date( $event->ID, true, $display_type );
+
+					if ( ( 'calendar' !== $event_start_day && 'both' !== $event_start_day ) ) {
+
+							$json_events['events'][ $x ]['end']             = $event_end_date_formatted;
+						$json_events['events'][ $x ]['unformated_end_date'] = $event_end_date;
+
 					}
 				}
 			}
@@ -2146,12 +2146,11 @@ class FooEvents_Calendar {
 
 			}
 
-			$x++;
+			++$x;
 
 		}
 
 		return $json_events;
-
 	}
 
 	/**
@@ -2172,7 +2171,7 @@ class FooEvents_Calendar {
 
 		foreach ( $attributes as $key => $attribute ) {
 
-			if ( strpos( $attribute, ':' ) !== false ) {
+			if ( is_string($attribute) && strpos( $attribute, ':' ) !== false ) {
 
 				$att_ret = array();
 				$parts   = explode( ';', $attribute );
@@ -2224,7 +2223,6 @@ class FooEvents_Calendar {
 		}
 
 		return $processed_attributes;
-
 	}
 
 	/**
@@ -2303,7 +2301,6 @@ class FooEvents_Calendar {
 		);
 
 		return $settings;
-
 	}
 
 
@@ -2314,7 +2311,6 @@ class FooEvents_Calendar {
 
 		$role = get_role( 'administrator' );
 		$role->add_cap( 'publish_fooevents_calendar' );
-
 	}
 
 	/**
@@ -2339,7 +2335,6 @@ class FooEvents_Calendar {
 
 			}
 		}
-
 	}
 
 	/**
@@ -2428,7 +2423,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2489,7 +2483,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2510,7 +2503,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2545,7 +2537,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2566,7 +2557,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2585,7 +2575,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2630,7 +2619,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2647,7 +2635,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2674,7 +2661,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2709,7 +2695,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2736,7 +2721,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2773,7 +2757,6 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
-
 	}
 
 	/**
@@ -2783,7 +2766,6 @@ class FooEvents_Calendar {
 
 		$path   = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
 		$loaded = load_plugin_textdomain( 'fooevents-calendar', false, $path );
-
 	}
 
 	/**
@@ -2803,7 +2785,6 @@ class FooEvents_Calendar {
 		}
 
 		return( $new_array );
-
 	}
 
 	/**
@@ -2833,7 +2814,6 @@ class FooEvents_Calendar {
 		unset( $post_types['fe_eventbrite_event'] );
 
 		return $post_types;
-
 	}
 
 	/**
@@ -2855,6 +2835,10 @@ class FooEvents_Calendar {
 				return( 'd MM, yy' );
 			case 'F j, Y':
 				return( 'MM dd, yy' );
+			case 'F j Y':
+				return( 'MM dd yy' );
+			case 'j F, Y':
+				return( 'dd MM, yy' );
 			case 'M. j, Y':
 				return( 'M. dd, yy' );
 			case 'M. d, Y':
@@ -2902,7 +2886,6 @@ class FooEvents_Calendar {
 			default:
 				return( 'yy-mm-dd' );
 		}
-
 	}
 
 	/**
@@ -2915,386 +2898,386 @@ class FooEvents_Calendar {
 
 		$months = array(
 			// French.
-			'janvier'        => 'January',
-			'février'        => 'February',
-			'mars'           => 'March',
-			'avril'          => 'April',
-			'mai'            => 'May',
-			'juin'           => 'June',
-			'juillet'        => 'July',
-			'aout'           => 'August',
-			'août'           => 'August',
-			'septembre'      => 'September',
-			'octobre'        => 'October',
+			'janvier'     => 'January',
+			'février'     => 'February',
+			'mars'        => 'March',
+			'avril'       => 'April',
+			'mai'         => 'May',
+			'juin'        => 'June',
+			'juillet'     => 'July',
+			'aout'        => 'August',
+			'août'        => 'August',
+			'septembre'   => 'September',
+			'octobre'     => 'October',
 
 			// German.
-			'Januar'         => 'January',
-			'Februar'        => 'February',
-			'März'           => 'March',
-			'Mai'            => 'May',
-			'Juni'           => 'June',
-			'Juli'           => 'July',
-			'Oktober'        => 'October',
-			'Dezember'       => 'December',
-			'Montag'         => '',
-			'Dienstag'       => '',
-			'Mittwoch'       => '',
-			'Donnerstag'     => '',
-			'Freitag'        => '',
-			'Samstag'        => '',
-			'Sonntag'        => '',
+			'Januar'      => 'January',
+			'Februar'     => 'February',
+			'März'        => 'March',
+			'Mai'         => 'May',
+			'Juni'        => 'June',
+			'Juli'        => 'July',
+			'Oktober'     => 'October',
+			'Dezember'    => 'December',
+			'Montag'      => '',
+			'Dienstag'    => '',
+			'Mittwoch'    => '',
+			'Donnerstag'  => '',
+			'Freitag'     => '',
+			'Samstag'     => '',
+			'Sonntag'     => '',
 
 			// Spanish.
-			'enero'          => 'January',
-			'febrero'        => 'February',
-			'marzo'          => 'March',
-			'abril'          => 'April',
-			'mayo'           => 'May',
-			'junio'          => 'June',
-			'julio'          => 'July',
-			'agosto'         => 'August',
-			'septiembre'     => 'September',
-			'setiembre'      => 'September',
-			'octubre'        => 'October',
-			'noviembre'      => 'November',
-			'diciembre'      => 'December',
-			'novembre'       => 'November',
-			'décembre'       => 'December',
-			'lunes'          => '',
-			'martes'         => '',
-			'miércoles'      => '',
-			'jueves'         => '',
-			'viernes'        => '',
-			'sábado'         => '',
-			'domingo'        => '',
+			'enero'       => 'January',
+			'febrero'     => 'February',
+			'marzo'       => 'March',
+			'abril'       => 'April',
+			'mayo'        => 'May',
+			'junio'       => 'June',
+			'julio'       => 'July',
+			'agosto'      => 'August',
+			'septiembre'  => 'September',
+			'setiembre'   => 'September',
+			'octubre'     => 'October',
+			'noviembre'   => 'November',
+			'diciembre'   => 'December',
+			'novembre'    => 'November',
+			'décembre'    => 'December',
+			'lunes'       => '',
+			'martes'      => '',
+			'miércoles'   => '',
+			'jueves'      => '',
+			'viernes'     => '',
+			'sábado'      => '',
+			'domingo'     => '',
 
 			// Catalan - Spain
-			'gener'          => 'January',
-			'febrer'         => 'February',
-			'març'           => 'March',
-			'abril'          => 'April',
-			'maig'           => 'May',
-			'juny'           => 'June',
-			'juliol'         => 'July',
-			'agost'          => 'August',
-			'setembre'       => 'September',
-			'octubre'        => 'October',
-			'novembre'       => 'November',
-			'desembre'       => 'December',
+			'gener'       => 'January',
+			'febrer'      => 'February',
+			'març'        => 'March',
+			'abril'       => 'April',
+			'maig'        => 'May',
+			'juny'        => 'June',
+			'juliol'      => 'July',
+			'agost'       => 'August',
+			'setembre'    => 'September',
+			'octubre'     => 'October',
+			'novembre'    => 'November',
+			'desembre'    => 'December',
 
 			// Dutch.
-			'januari'        => 'January',
-			'februari'       => 'February',
-			'maart'          => 'March',
-			'april'          => 'April',
-			'mei'            => 'May',
-			'juni'           => 'June',
-			'juli'           => 'July',
-			'augustus'       => 'August',
-			'september'      => 'September',
-			'oktober'        => 'October',
-			'november'       => 'November',
-			'december'       => 'December',
-			'maandag'        => '',
-			'dinsdag'        => '',
-			'woensdag'       => '',
-			'donderdag'      => '',
-			'vrijdag'        => '',
-			'zaterdag'       => '',
-			'zondag'         => '',
+			'januari'     => 'January',
+			'februari'    => 'February',
+			'maart'       => 'March',
+			'april'       => 'April',
+			'mei'         => 'May',
+			'juni'        => 'June',
+			'juli'        => 'July',
+			'augustus'    => 'August',
+			'september'   => 'September',
+			'oktober'     => 'October',
+			'november'    => 'November',
+			'december'    => 'December',
+			'maandag'     => '',
+			'dinsdag'     => '',
+			'woensdag'    => '',
+			'donderdag'   => '',
+			'vrijdag'     => '',
+			'zaterdag'    => '',
+			'zondag'      => '',
 
 			// Italian.
-			'Gennaio'        => 'January',
-			'Febbraio'       => 'February',
-			'Marzo'          => 'March',
-			'Aprile'         => 'April',
-			'Maggio'         => 'May',
-			'Giugno'         => 'June',
-			'Luglio'         => 'July',
-			'Agosto'         => 'August',
-			'Settembre'      => 'September',
-			'Ottobre'        => 'October',
-			'Novembre'       => 'November',
-			'Dicembre'       => 'December',
+			'Gennaio'     => 'January',
+			'Febbraio'    => 'February',
+			'Marzo'       => 'March',
+			'Aprile'      => 'April',
+			'Maggio'      => 'May',
+			'Giugno'      => 'June',
+			'Luglio'      => 'July',
+			'Agosto'      => 'August',
+			'Settembre'   => 'September',
+			'Ottobre'     => 'October',
+			'Novembre'    => 'November',
+			'Dicembre'    => 'December',
 
 			// Polish.
-			'Styczeń'        => 'January',
-			'Luty'           => 'February',
-			'Marzec'         => 'March',
-			'Kwiecień'       => 'April',
-			'Maj'            => 'May',
-			'Czerwiec'       => 'June',
-			'Lipiec'         => 'July',
-			'Sierpień'       => 'August',
-			'Wrzesień'       => 'September',
-			'Październik'    => 'October',
-			'Listopad'       => 'November',
-			'Grudzień'       => 'December',
+			'Styczeń'     => 'January',
+			'Luty'        => 'February',
+			'Marzec'      => 'March',
+			'Kwiecień'    => 'April',
+			'Maj'         => 'May',
+			'Czerwiec'    => 'June',
+			'Lipiec'      => 'July',
+			'Sierpień'    => 'August',
+			'Wrzesień'    => 'September',
+			'Październik' => 'October',
+			'Listopad'    => 'November',
+			'Grudzień'    => 'December',
 
 			// Afrikaans.
-			'Januarie'       => 'January',
-			'Februarie'      => 'February',
-			'Maart'          => 'March',
-			'Mei'            => 'May',
-			'Junie'          => 'June',
-			'Julie'          => 'July',
-			'Augustus'       => 'August',
-			'Oktober'        => 'October',
-			'Desember'       => 'December',
+			'Januarie'    => 'January',
+			'Februarie'   => 'February',
+			'Maart'       => 'March',
+			'Mei'         => 'May',
+			'Junie'       => 'June',
+			'Julie'       => 'July',
+			'Augustus'    => 'August',
+			'Oktober'     => 'October',
+			'Desember'    => 'December',
 
 			// Turkish.
-			'Ocak'           => 'January',
-			'Şubat'          => 'February',
-			'Mart'           => 'March',
-			'Nisan'          => 'April',
-			'Mayıs'          => 'May',
-			'Haziran'        => 'June',
-			'Temmuz'         => 'July',
-			'Ağustos'        => 'August',
-			'Eylül'          => 'September',
-			'Ekim'           => 'October',
-			'Kasım'          => 'November',
-			'Aralık'         => 'December',
+			'Ocak'        => 'January',
+			'Şubat'       => 'February',
+			'Mart'        => 'March',
+			'Nisan'       => 'April',
+			'Mayıs'       => 'May',
+			'Haziran'     => 'June',
+			'Temmuz'      => 'July',
+			'Ağustos'     => 'August',
+			'Eylül'       => 'September',
+			'Ekim'        => 'October',
+			'Kasım'       => 'November',
+			'Aralık'      => 'December',
 
 			// Portuguese.
-			'janeiro'        => 'January',
-			'fevereiro'      => 'February',
-			'março'          => 'March',
-			'abril'          => 'April',
-			'maio'           => 'May',
-			'junho'          => 'June',
-			'julho'          => 'July',
-			'agosto'         => 'August',
-			'setembro'       => 'September',
-			'outubro'        => 'October',
-			'novembro'       => 'November',
-			'dezembro'       => 'December',
+			'janeiro'     => 'January',
+			'fevereiro'   => 'February',
+			'março'       => 'March',
+			'abril'       => 'April',
+			'maio'        => 'May',
+			'junho'       => 'June',
+			'julho'       => 'July',
+			'agosto'      => 'August',
+			'setembro'    => 'September',
+			'outubro'     => 'October',
+			'novembro'    => 'November',
+			'dezembro'    => 'December',
 
 			// Swedish.
-			'Januari'        => 'January',
-			'Februari'       => 'February',
-			'Mars'           => 'March',
-			'April'          => 'April',
-			'Maj'            => 'May',
-			'Juni'           => 'June',
-			'Juli'           => 'July',
-			'Augusti'        => 'August',
-			'September'      => 'September',
-			'Oktober'        => 'October',
-			'November'       => 'November',
-			'December'       => 'December',
+			'Januari'     => 'January',
+			'Februari'    => 'February',
+			'Mars'        => 'March',
+			'April'       => 'April',
+			'Maj'         => 'May',
+			'Juni'        => 'June',
+			'Juli'        => 'July',
+			'Augusti'     => 'August',
+			'September'   => 'September',
+			'Oktober'     => 'October',
+			'November'    => 'November',
+			'December'    => 'December',
 
 			// Czech.
-			'leden'          => 'January',
-			'únor'           => 'February',
-			'březen'         => 'March',
-			'duben'          => 'April',
-			'květen'         => 'May',
-			'červen'         => 'June',
-			'červenec'       => 'July',
-			'srpen'          => 'August',
-			'září'           => 'September',
-			'říjen'          => 'October',
-			'listopad'       => 'November',
-			'prosinec'       => 'December',
+			'leden'       => 'January',
+			'únor'        => 'February',
+			'březen'      => 'March',
+			'duben'       => 'April',
+			'květen'      => 'May',
+			'červen'      => 'June',
+			'červenec'    => 'July',
+			'srpen'       => 'August',
+			'září'        => 'September',
+			'říjen'       => 'October',
+			'listopad'    => 'November',
+			'prosinec'    => 'December',
 
 			// Norwegian.
-			'januar'         => 'January',
-			'februar'        => 'February',
-			'mars'           => 'March',
-			'april'          => 'April',
-			'mai'            => 'May',
-			'juni'           => 'June',
-			'juli'           => 'July',
-			'august'         => 'August',
-			'september'      => 'September',
-			'oktober'        => 'October',
-			'november'       => 'November',
-			'desember'       => 'December',
+			'januar'      => 'January',
+			'februar'     => 'February',
+			'mars'        => 'March',
+			'april'       => 'April',
+			'mai'         => 'May',
+			'juni'        => 'June',
+			'juli'        => 'July',
+			'august'      => 'August',
+			'september'   => 'September',
+			'oktober'     => 'October',
+			'november'    => 'November',
+			'desember'    => 'December',
 
 			// Danish.
-			'januar'         => 'January',
-			'februar'        => 'February',
-			'marts'          => 'March',
-			'april'          => 'April',
-			'maj'            => 'May',
-			'juni'           => 'June',
-			'juli'           => 'July',
-			'august'         => 'August',
-			'september'      => 'September',
-			'oktober'        => 'October',
-			'november'       => 'November',
-			'december'       => 'December',
+			'januar'      => 'January',
+			'februar'     => 'February',
+			'marts'       => 'March',
+			'april'       => 'April',
+			'maj'         => 'May',
+			'juni'        => 'June',
+			'juli'        => 'July',
+			'august'      => 'August',
+			'september'   => 'September',
+			'oktober'     => 'October',
+			'november'    => 'November',
+			'december'    => 'December',
 
 			// Finnish.
-			'tammikuu'       => 'January',
-			'helmikuu'       => 'February',
-			'maaliskuu'      => 'March',
-			'huhtikuu'       => 'April',
-			'toukokuu'       => 'May',
-			'kesäkuu'        => 'June',
-			'heinäkuu'       => 'July',
-			'elokuu'         => 'August',
-			'syyskuu'        => 'September',
-			'lokakuu'        => 'October',
-			'marraskuu'      => 'November',
-			'joulukuu'       => 'December',
+			'tammikuu'    => 'January',
+			'helmikuu'    => 'February',
+			'maaliskuu'   => 'March',
+			'huhtikuu'    => 'April',
+			'toukokuu'    => 'May',
+			'kesäkuu'     => 'June',
+			'heinäkuu'    => 'July',
+			'elokuu'      => 'August',
+			'syyskuu'     => 'September',
+			'lokakuu'     => 'October',
+			'marraskuu'   => 'November',
+			'joulukuu'    => 'December',
 
 			// Russian.
-			'Январь'         => 'January',
-			'Февраль'        => 'February',
-			'Март'           => 'March',
-			'Апрель'         => 'April',
-			'Май'            => 'May',
-			'Июнь'           => 'June',
-			'Июль'           => 'July',
-			'Август'         => 'August',
-			'Сентябрь'       => 'September',
-			'Октябрь'        => 'October',
-			'Ноябрь'         => 'November',
-			'Декабрь'        => 'December',
+			'Январь'      => 'January',
+			'Февраль'     => 'February',
+			'Март'        => 'March',
+			'Апрель'      => 'April',
+			'Май'         => 'May',
+			'Июнь'        => 'June',
+			'Июль'        => 'July',
+			'Август'      => 'August',
+			'Сентябрь'    => 'September',
+			'Октябрь'     => 'October',
+			'Ноябрь'      => 'November',
+			'Декабрь'     => 'December',
 
 			// Icelandic.
-			'Janúar'         => 'January',
-			'Febrúar'        => 'February',
-			'Mars'           => 'March',
-			'Apríl'          => 'April',
-			'Maí'            => 'May',
-			'Júní'           => 'June',
-			'Júlí'           => 'July',
-			'Ágúst'          => 'August',
-			'September'      => 'September',
-			'Oktober'        => 'October',
-			'Nóvember'       => 'November',
-			'Desember'       => 'December',
+			'Janúar'      => 'January',
+			'Febrúar'     => 'February',
+			'Mars'        => 'March',
+			'Apríl'       => 'April',
+			'Maí'         => 'May',
+			'Júní'        => 'June',
+			'Júlí'        => 'July',
+			'Ágúst'       => 'August',
+			'September'   => 'September',
+			'Oktober'     => 'October',
+			'Nóvember'    => 'November',
+			'Desember'    => 'December',
 
 			// Latvian.
-			'janvāris'       => 'January',
-			'februāris'      => 'February',
-			'marts'          => 'March',
-			'aprīlis'        => 'April',
-			'maijs'          => 'May',
-			'jūnijs'         => 'June',
-			'jūlijs'         => 'July',
-			'augusts'        => 'August',
-			'septembris'     => 'September',
-			'oktobris'       => 'October',
-			'novembris'      => 'November',
-			'decembris'      => 'December',
+			'janvāris'    => 'January',
+			'februāris'   => 'February',
+			'marts'       => 'March',
+			'aprīlis'     => 'April',
+			'maijs'       => 'May',
+			'jūnijs'      => 'June',
+			'jūlijs'      => 'July',
+			'augusts'     => 'August',
+			'septembris'  => 'September',
+			'oktobris'    => 'October',
+			'novembris'   => 'November',
+			'decembris'   => 'December',
 
 			// Lithuanian.
-			'sausio'         => 'January',
-			'vasario'        => 'February',
-			'kovo'           => 'March',
-			'balandžio'      => 'April',
-			'gegužės'        => 'May',
-			'birželio'       => 'June',
-			'liepos'         => 'July',
-			'rugpjūčio'      => 'August',
-			'rugsėjo'        => 'September',
-			'spalio'         => 'October',
-			'lapkričio'      => 'November',
-			'gruodžio'       => 'December',
+			'sausio'      => 'January',
+			'vasario'     => 'February',
+			'kovo'        => 'March',
+			'balandžio'   => 'April',
+			'gegužės'     => 'May',
+			'birželio'    => 'June',
+			'liepos'      => 'July',
+			'rugpjūčio'   => 'August',
+			'rugsėjo'     => 'September',
+			'spalio'      => 'October',
+			'lapkričio'   => 'November',
+			'gruodžio'    => 'December',
 
 			// Estonian.
-			'jaanuar'        => 'January',
-			'veebruar'       => 'February',
-			'märts'          => 'March',
-			'aprill'         => 'April',
-			'mai'            => 'May',
-			'juuni'          => 'June',
-			'juuli'          => 'July',
-			'august'         => 'August',
-			'september'      => 'September',
-			'oktoober'       => 'October',
-			'november'       => 'November',
-			'detsember'      => 'December',
+			'jaanuar'     => 'January',
+			'veebruar'    => 'February',
+			'märts'       => 'March',
+			'aprill'      => 'April',
+			'mai'         => 'May',
+			'juuni'       => 'June',
+			'juuli'       => 'July',
+			'august'      => 'August',
+			'september'   => 'September',
+			'oktoober'    => 'October',
+			'november'    => 'November',
+			'detsember'   => 'December',
 
 			// Greek.
-			'Ιανουάριος'     => 'January',
-			'����εβρουάριος' => 'February',
-			'Μάρτιος'        => 'March',
-			'Απρίλιος'       => 'April',
-			'Μάιος'          => 'May',
-			'Ιούνιος'        => 'June',
-			'Ιούλιος'        => 'July',
-			'Αύγουστος'      => 'August',
-			'Σεπτέμβριος'    => 'September',
-			'Οκτώβριος'      => 'October',
-			'Νοέμβριο����'   => 'November',
-			'Δεκέμβριος'     => 'December',
+			'Ιανουάριος'  => 'January',
+			'Φεβρουάριος' => 'February',
+			'Μάρτιος'     => 'March',
+			'Απρίλιος'    => 'April',
+			'Μάιος'       => 'May',
+			'Ιούνιος'     => 'June',
+			'Ιούλιος'     => 'July',
+			'Αύγουστος'   => 'August',
+			'Σεπτέμβριος' => 'September',
+			'Οκτώβριος'   => 'October',
+			'Νοέμβριος'   => 'November',
+			'Δεκέμβριος'  => 'December',
 
 			// Slovak - Slovakia.
-			'január'         => 'January',
-			'február'        => 'February',
-			'marec'          => 'March',
-			'apríl'          => 'April',
-			'máj'            => 'May',
-			'jún'            => 'June',
-			'júl'            => 'July',
-			'august'         => 'August',
-			'september'      => 'September',
-			'október'        => 'October',
-			'november'       => 'November',
-			'december'       => 'December',
+			'január'      => 'January',
+			'február'     => 'February',
+			'marec'       => 'March',
+			'apríl'       => 'April',
+			'máj'         => 'May',
+			'jún'         => 'June',
+			'júl'         => 'July',
+			'august'      => 'August',
+			'september'   => 'September',
+			'október'     => 'October',
+			'november'    => 'November',
+			'december'    => 'December',
 
 			// Slovenian - Slovenia
-			'januar'         => 'January',
-			'februar'        => 'February',
-			'marec'          => 'March',
-			'april'          => 'April',
-			'maj'            => 'May',
-			'junij'          => 'June',
-			'julij'          => 'July',
-			'avgust'         => 'August',
-			'september'      => 'September',
-			'oktober'        => 'October',
-			'november'       => 'November',
-			'december'       => 'December',
+			'januar'      => 'January',
+			'februar'     => 'February',
+			'marec'       => 'March',
+			'april'       => 'April',
+			'maj'         => 'May',
+			'junij'       => 'June',
+			'julij'       => 'July',
+			'avgust'      => 'August',
+			'september'   => 'September',
+			'oktober'     => 'October',
+			'november'    => 'November',
+			'december'    => 'December',
 
 			// Romanian - Romania
-			'ianuarie'       => 'January',
-			'februarie'      => 'February',
-			'martie'         => 'March',
-			'aprilie'        => 'April',
-			'mai'            => 'May',
-			'iunie'          => 'June',
-			'iulie'          => 'July',
-			'august'         => 'August',
-			'septembrie'     => 'September',
-			'octombrie'      => 'October',
-			'noiembrie'      => 'November',
-			'decembrie'      => 'December',
+			'ianuarie'    => 'January',
+			'februarie'   => 'February',
+			'martie'      => 'March',
+			'aprilie'     => 'April',
+			'mai'         => 'May',
+			'iunie'       => 'June',
+			'iulie'       => 'July',
+			'august'      => 'August',
+			'septembrie'  => 'September',
+			'octombrie'   => 'October',
+			'noiembrie'   => 'November',
+			'decembrie'   => 'December',
 
 			// Croatian - Croatia.
 
-			'siječanj'       => 'January',
-			'veljača'        => 'February',
-			'ožujak'         => 'March',
-			'travanj'        => 'April',
-			'svibanj'        => 'May',
-			'lipanj'         => 'June',
-			'srpanj'         => 'July',
-			'kolovoz'        => 'August',
-			'rujan'          => 'September',
-			'listopad'       => 'October',
-			'studeni'        => 'November',
-			'prosinac'       => 'December',
+			'siječanj'    => 'January',
+			'veljača'     => 'February',
+			'ožujak'      => 'March',
+			'travanj'     => 'April',
+			'svibanj'     => 'May',
+			'lipanj'      => 'June',
+			'srpanj'      => 'July',
+			'kolovoz'     => 'August',
+			'rujan'       => 'September',
+			'listopad'    => 'October',
+			'studeni'     => 'November',
+			'prosinac'    => 'December',
 
 			// Bulgarian - Bulgaria.
 
-			'януари'         => 'January',
-			'февруари'       => 'February',
-			'март'           => 'March',
-			'април'          => 'April',
-			'май'            => 'May',
-			'юни'            => 'June',
-			'юли'            => 'July',
-			'август'         => 'August',
-			'септември'      => 'September',
-			'октомври'       => 'October',
-			'ноември'        => 'November',
-			'декември'       => 'December',
+			'януари'      => 'January',
+			'февруари'    => 'February',
+			'март'        => 'March',
+			'април'       => 'April',
+			'май'         => 'May',
+			'юни'         => 'June',
+			'юли'         => 'July',
+			'август'      => 'August',
+			'септември'   => 'September',
+			'октомври'    => 'October',
+			'ноември'     => 'November',
+			'декември'    => 'December',
 
 		);
 
@@ -3310,7 +3293,6 @@ class FooEvents_Calendar {
 		$replaced_event_date = str_replace( ' de ', ' ', $replaced_event_date );
 
 		return $replaced_event_date;
-
 	}
 
 	/**
@@ -3339,9 +3321,7 @@ class FooEvents_Calendar {
 			unset( $_SESSION['fooevents_calendar_errors'] );
 
 		}
-
 	}
-
 }
 
 add_action( 'admin_init', 'fooevents_calendar_redirect' );
@@ -3365,7 +3345,6 @@ function fooevents_calendar_activate( $plugin ) {
 		add_option( 'fooevents_calendar_do_activation_redirect', true );
 
 	}
-
 }
 
 /**
@@ -3391,5 +3370,4 @@ function fooevents_calendar_redirect() {
 
 		}
 	}
-
 }
