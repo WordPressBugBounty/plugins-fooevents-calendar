@@ -1381,15 +1381,7 @@ class FooEvents_Calendar {
 
 		$events = $this->sort_events_by_date( $events, $sort );
 
-		if ( 'asc' === $sort && ! empty( $num_events ) && is_numeric( $num_events ) ) {
-
-			$events = array_slice( $events, 0, $num_events, true );
-
-		} elseif ( ! empty( $num_events ) && is_numeric( $num_events ) ) {
-
-			$events = array_slice( $events, -$num_events, $num_events, true );
-
-		}
+		$events = array_slice( $events, 0, $num_events );
 
 		if ( empty( $attributes['type'] ) ) {
 
@@ -1777,9 +1769,15 @@ class FooEvents_Calendar {
 
 		}
 
-		$events = new WP_Query( $args );
+		//$events = new WP_Query( $args );
 
-		return $events->get_posts();
+		$events = get_posts( $args );
+
+		return $events;
+
+		
+
+		//return $events->get_posts();
 	}
 
 	/**
@@ -1870,17 +1868,33 @@ class FooEvents_Calendar {
 
 			}
 
+			$product  = wc_get_product( $event->ID );
+			$stock    = '';
+			$in_stock = '';
+
+			if ( $product ) {
+				$stock    = $product->get_stock_quantity();
+				$in_stock = $product->is_in_stock();
+			}
+
 			$event_date_unformated  = get_post_meta( $event->ID, 'WooCommerceEventsDate', true );
 			$event_type             = get_post_meta( $event->ID, 'WooCommerceEventsType', true );
 			$event_hour             = get_post_meta( $event->ID, 'WooCommerceEventsHour', true );
+			$event_hour_end         = get_post_meta( $event->ID, 'WooCommerceEventsHourEnd', true );
 			$event_minutes          = get_post_meta( $event->ID, 'WooCommerceEventsMinutes', true );
+			$event_minutes_end      = get_post_meta( $event->ID, 'WooCommerceEventsMinutesEnd', true );
+			$event_timestamp        = get_post_meta( $event->ID, 'WooCommerceEventsDateTimestamp', true );
 			$event_period           = get_post_meta( $event->ID, 'WooCommerceEventsPeriod', true );
+			$event_end_period       = get_post_meta( $event->ID, 'WooCommerceEventsEndPeriod', true );
+			$event_timezone         = get_post_meta( $event->ID, 'WooCommerceEventsTimeZone', true );
 			$event_background_color = get_post_meta( $event->ID, 'WooCommerceEventsBackgroundColor', true );
 			$event_text_color       = get_post_meta( $event->ID, 'WooCommerceEventsTextColor', true );
-			$stock                  = get_post_meta( $event->ID, '_stock', true );
 			$event_expire           = get_post_meta( $event->ID, 'WooCommerceEventsExpireTimestamp', true );
+			$location               = get_post_meta( $event->ID, 'WooCommerceEventsLocation', true );
 			$events_expire_option   = get_option( 'globalWooCommerceEventsExpireOption' );
 			$today                  = current_time( 'timestamp' );
+			$event_start_time       = $event_hour . ':' . $event_minutes . ' ' . $event_period;
+			$event_end_time         = $event_hour_end . ':' . $event_minutes_end . $event_end_period;
 
 			// Check if event has expired.
 			if ( 'hide' === $events_expire_option && ! empty( $event_expire ) && $today >= $event_expire ) {
@@ -1921,15 +1935,47 @@ class FooEvents_Calendar {
 
 			}
 
+			if ( '' !== $event_timezone ) {
+
+				$timezone_date = new DateTime();
+
+				try {
+
+					$tz = new DateTimeZone( $event_timezone );
+
+				} catch ( Exception $e ) {
+
+					$server_timezone = date_default_timezone_get();
+					$tz              = new DateTimeZone( $server_timezone );
+
+				}
+
+				$timezone_date->setTimeZone( $tz );
+				$timezone = $timezone_date->format( 'T' );
+				if ( (int) $timezone > 0 ) {
+					$timezone = 'UTC' . $timezone;
+				}
+			} else {
+
+				$timezone = '';
+
+			}
+
 			if ( 'bookings' !== $event_type ) {
 
 				$json_events['events'][ $x ] = array(
-					'title'           => $event->post_title,
-					'allDay'          => $all_day_event,
-					'start'           => $event_date,
-					'unformated_date' => $event_date_unformated,
-					'url'             => get_permalink( $event->ID ),
-					'post_id'         => $event->ID,
+					'title'                 => $event->post_title,
+					'allDay'                => $all_day_event,
+					'start'                 => $event_date,
+					'unformated_date'       => $event_date_unformated,
+					'unformated_start_time' => $event_start_time,
+					'unformated_end_time'   => $event_end_time,
+					'timestamp'             => strtotime( $event_date ),
+					'timezone'              => $timezone,
+					'url'                   => get_permalink( $event->ID ),
+					'location'              => $location,
+					'post_id'               => $event->ID,
+					'stock_num'             => $stock,
 				);
 
 			}
@@ -1974,10 +2020,13 @@ class FooEvents_Calendar {
 
 				if ( 'select' === $multi_day_type ) {
 
-					$multi_day_dates   = get_post_meta( $event->ID, 'WooCommerceEventsSelectDate', true );
-					$multi_day_hours   = get_post_meta( $event->ID, 'WooCommerceEventsSelectDateHour', true );
-					$multi_day_minutes = get_post_meta( $event->ID, 'WooCommerceEventsSelectDateMinutes', true );
-					$multi_day_period  = get_post_meta( $event->ID, 'WooCommerceEventsSelectDatePeriod', true );
+					$multi_day_dates       = get_post_meta( $event->ID, 'WooCommerceEventsSelectDate', true );
+					$multi_day_hours       = get_post_meta( $event->ID, 'WooCommerceEventsSelectDateHour', true );
+					$multi_day_hours_end   = get_post_meta( $event->ID, 'WooCommerceEventsSelectDateHourEnd', true );
+					$multi_day_minutes     = get_post_meta( $event->ID, 'WooCommerceEventsSelectDateMinutes', true );
+					$multi_day_minutes_end = get_post_meta( $event->ID, 'WooCommerceEventsSelectDateMinutesEnd', true );
+					$multi_day_period      = get_post_meta( $event->ID, 'WooCommerceEventsSelectDatePeriod', true );
+					$multi_day_period_end  = get_post_meta( $event->ID, 'WooCommerceEventsSelectDatePeriodEnd', true );
 
 					if ( 'events_list' === $display_type ) {
 
@@ -2005,14 +2054,28 @@ class FooEvents_Calendar {
 
 							++$x;
 
-							$event_date = '';
+							$event_date       = '';
+							$event_start_time = '';
+							$event_end_time   = '';
 							if ( isset( $multi_day_hours[ $y ] ) && isset( $multi_day_minutes[ $y ] ) ) {
 
-								$event_date = $date . ' ' . $multi_day_hours[ $y ] . ':' . $multi_day_minutes[ $y ] . $multi_day_period[ $y ];
+								$event_date       = $date . ' ' . $multi_day_hours[ $y ] . ':' . $multi_day_minutes[ $y ] . $multi_day_period[ $y ];
+								$event_start_time = $multi_day_hours[ $y ] . ':' . $multi_day_minutes[ $y ] . $multi_day_period[ $y ];
 
 							} else {
 
-								$event_date = $date . ' ' . $event_hour . ':' . $event_minutes . $event_period;
+								$event_date       = $date . ' ' . $event_hour . ':' . $event_minutes . $event_period;
+								$event_start_time = $event_hour . ':' . $event_minutes . $event_period;
+
+							}
+
+							if ( isset( $multi_day_hours_end[ $y ] ) && isset( $multi_day_minutes_end[ $y ] ) ) {
+
+								$event_end_time = $multi_day_hours_end[ $y ] . ':' . $multi_day_minutes_end[ $y ] . $multi_day_period_end[ $y ];
+
+							} else {
+
+								$event_end_time = $event_hour . ':' . $event_minutes . $event_period;
 
 							}
 
@@ -2029,13 +2092,18 @@ class FooEvents_Calendar {
 							$event_date = str_replace( ' ', 'T', $event_date );
 
 							$json_events['events'][ $x ] = array(
-								'title'           => $event->post_title,
-								'allDay'          => $all_day_event,
-								'start'           => $event_date,
-								'unformated_date' => $date,
-								'url'             => get_permalink( $event->ID ),
-								'post_id'         => $event->ID,
-								'multi_day'       => 'selected',
+								'title'                 => $event->post_title,
+								'allDay'                => $all_day_event,
+								'start'                 => $event_date,
+								'unformated_date'       => $date,
+								'unformated_start_time' => $event_start_time,
+								'timestamp'             => $event_timestamp,
+								'unformated_end_time'   => $event_end_time,
+								'url'                   => get_permalink( $event->ID ),
+								'location'              => $location,
+								'post_id'               => $event->ID,
+								'multi_day'             => 'selected',
+								'stock_num'             => $stock,
 							);
 
 							if ( $include_desc ) {

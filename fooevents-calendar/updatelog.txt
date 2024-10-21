@@ -2,6 +2,11 @@
 UPDATE LOG
 
 ------------------
+1.7.6
+FIXED: Event listing shortcode bug.
+FIXED: Various other small bugs.
+TESTED ON: WordPress 6.6.2 and WooCommerce 9.3.3.
+
 1.7.4
 NEW: FooEvents Calendar block.
 FIXED: Various small bugs.

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FooEvents Calendar\n"
-"POT-Creation-Date: 2024-10-01 11:45+0200\n"
-"PO-Revision-Date: 2024-10-01 11:45+0200\n"
+"POT-Creation-Date: 2024-10-21 11:38+0200\n"
+"PO-Revision-Date: 2024-10-21 11:38+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: class-fooevents-calendar.php:138 class-fooevents-calendar.php:1525
+#: class-fooevents-calendar.php:138 class-fooevents-calendar.php:1517
 msgid "Today"
 msgstr ""
 
@@ -34,7 +34,7 @@ msgstr ""
 msgid "FooEvents"
 msgstr ""
 
-#: class-fooevents-calendar.php:263 class-fooevents-calendar.php:2237
+#: class-fooevents-calendar.php:263 class-fooevents-calendar.php:2305
 #: src/fooevents-calendar-shortcode/edit.js:66
 #: templates/calendar-options-layout.php:26
 msgid "Calendar Settings"
@@ -77,76 +77,76 @@ msgstr ""
 msgid "%1$d events added. %2$d events updated."
 msgstr ""
 
-#: class-fooevents-calendar.php:1270 class-fooevents-calendar.php:1418
+#: class-fooevents-calendar.php:1270 class-fooevents-calendar.php:1410
 msgid "Book ticket"
 msgstr ""
 
-#: class-fooevents-calendar.php:2243
+#: class-fooevents-calendar.php:2311
 msgid "Enable 24 hour time format"
 msgstr ""
 
-#: class-fooevents-calendar.php:2247
+#: class-fooevents-calendar.php:2315
 msgid "Uses 24 hour time format on the calendar."
 msgstr ""
 
-#: class-fooevents-calendar.php:2251
+#: class-fooevents-calendar.php:2319
 msgid "Only display start day"
 msgstr ""
 
-#: class-fooevents-calendar.php:2255
+#: class-fooevents-calendar.php:2323
 msgid "When multi-day plugin is active only display the event start day"
 msgstr ""
 
-#: class-fooevents-calendar.php:2259
+#: class-fooevents-calendar.php:2327
 msgid "Enable full day events"
 msgstr ""
 
-#: class-fooevents-calendar.php:2263
+#: class-fooevents-calendar.php:2331
 msgid "Removes event time from calendar entry titles."
 msgstr ""
 
-#: class-fooevents-calendar.php:2267 templates/calendar-options.php:45
+#: class-fooevents-calendar.php:2335 templates/calendar-options.php:45
 msgid "Calendar theme"
 msgstr ""
 
-#: class-fooevents-calendar.php:2273 class-fooevents-calendar.php:2289
+#: class-fooevents-calendar.php:2341 class-fooevents-calendar.php:2357
 #: templates/calendar-options.php:48 templates/calendar-options.php:61
 msgid "Default"
 msgstr ""
 
-#: class-fooevents-calendar.php:2274 templates/calendar-options.php:49
+#: class-fooevents-calendar.php:2342 templates/calendar-options.php:49
 msgid "Light"
 msgstr ""
 
-#: class-fooevents-calendar.php:2275 templates/calendar-options.php:50
+#: class-fooevents-calendar.php:2343 templates/calendar-options.php:50
 msgid "Dark"
 msgstr ""
 
-#: class-fooevents-calendar.php:2276 templates/calendar-options.php:51
+#: class-fooevents-calendar.php:2344 templates/calendar-options.php:51
 msgid "Flat"
 msgstr ""
 
-#: class-fooevents-calendar.php:2277 templates/calendar-options.php:52
+#: class-fooevents-calendar.php:2345 templates/calendar-options.php:52
 msgid "Minimalist"
 msgstr ""
 
-#: class-fooevents-calendar.php:2279
+#: class-fooevents-calendar.php:2347
 msgid "Selects calendar theme to be used on Wordpress frontend."
 msgstr ""
 
-#: class-fooevents-calendar.php:2283 templates/calendar-options.php:58
+#: class-fooevents-calendar.php:2351 templates/calendar-options.php:58
 msgid "Events list theme"
 msgstr ""
 
-#: class-fooevents-calendar.php:2290 templates/calendar-options.php:62
+#: class-fooevents-calendar.php:2358 templates/calendar-options.php:62
 msgid "Light Card"
 msgstr ""
 
-#: class-fooevents-calendar.php:2291 templates/calendar-options.php:63
+#: class-fooevents-calendar.php:2359 templates/calendar-options.php:63
 msgid "Dark Card"
 msgstr ""
 
-#: class-fooevents-calendar.php:2293
+#: class-fooevents-calendar.php:2361
 msgid "Selects events list theme to be used on Wordpress frontend."
 msgstr ""
 

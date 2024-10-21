@@ -60,7 +60,7 @@ class FooEvents_Calendar_Blocks_Calendar {
 
 		}
 
-		if ( is_product() ) {
+		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && is_product() ) {
 
 			$attributes['productIDs'][] = get_the_ID();
 
