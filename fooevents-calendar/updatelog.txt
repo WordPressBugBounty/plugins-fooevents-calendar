@@ -2,6 +2,13 @@
 UPDATE LOG
 
 ------------------
+1.7.7
+FIXED: Post type association bug on new installs.
+FIXED: Date picker styling bug when WooCommerce plugin not active.
+FIXED: PHP and SESSION errors on new install.
+FIXED: Various other small bugs.
+TESTED ON: WordPress 6.6.2 and WooCommerce 9.3.3.
+
 1.7.6
 FIXED: Event listing shortcode bug.
 FIXED: Various other small bugs.

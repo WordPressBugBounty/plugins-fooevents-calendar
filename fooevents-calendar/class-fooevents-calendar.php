@@ -164,11 +164,11 @@ class FooEvents_Calendar {
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'fooevents-calendar-admin-style', $this->config->stylesPath . 'calendar-admin.css', array(), $this->config->plugin_data['Version'] );
 
-		if ( ( isset( $_GET['post'] ) && isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) || ( isset( $_GET['page'] ) && 'fooevents-event-report' === $_GET['page'] ) || ( isset( $_GET['post_type'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		// if ( ( isset( $_GET['post'] ) && isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) || ( isset( $_GET['page'] ) && 'fooevents-event-report' === $_GET['page'] ) || ( isset( $_GET['post_type'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 
 			wp_enqueue_style( 'fooevents-calendar-jquery', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css', array(), '1.0.0' );
 
-		}
+		// }
 
 		if ( ! is_plugin_active( 'fooevents/fooevents.php' ) ) {
 
@@ -211,7 +211,6 @@ class FooEvents_Calendar {
 			wp_enqueue_style( 'fooevents-calendar-list-dark-card', $this->config->stylesPath . 'fooevents-list-dark-card.css', array(), $this->config->plugin_data['Version'] );
 
 		}
-
 	}
 
 	/**
@@ -344,9 +343,10 @@ class FooEvents_Calendar {
 		$global_fooevents_calendar_list_theme = get_option( 'globalFooEventsCalendarListTheme' );
 		$global_fooevents_calendar_post_types = get_option( 'globalFooEventsCalendarPostTypes' );
 
+
 		if ( empty( $global_fooevents_calendar_post_types ) ) {
 
-			$global_fooevents_calendar_post_types = array();
+			$global_fooevents_calendar_post_types = array('post', 'page');
 
 		}
 
@@ -1769,15 +1769,13 @@ class FooEvents_Calendar {
 
 		}
 
-		//$events = new WP_Query( $args );
+		// $events = new WP_Query( $args );
 
 		$events = get_posts( $args );
 
 		return $events;
 
-		
-
-		//return $events->get_posts();
+		// return $events->get_posts();
 	}
 
 	/**
@@ -1792,7 +1790,7 @@ class FooEvents_Calendar {
 
 		if ( empty( $calendar_post_types ) ) {
 
-			$calendar_post_types = array( 'post' );
+			$calendar_post_types = array( 'post', 'page' );
 
 		}
 
@@ -1868,10 +1866,15 @@ class FooEvents_Calendar {
 
 			}
 
-			$product  = wc_get_product( $event->ID );
+			$product = '';
+			if ( function_exists( 'wc_get_product' ) ) {
+
+				$product = wc_get_product( $event->ID );
+
+			}
+
 			$stock    = '';
 			$in_stock = '';
-
 			if ( $product ) {
 				$stock    = $product->get_stock_quantity();
 				$in_stock = $product->is_in_stock();
@@ -2239,7 +2242,7 @@ class FooEvents_Calendar {
 
 		foreach ( $attributes as $key => $attribute ) {
 
-			if ( is_string($attribute) && strpos( $attribute, ':' ) !== false ) {
+			if ( is_string( $attribute ) && strpos( $attribute, ':' ) !== false ) {
 
 				$att_ret = array();
 				$parts   = explode( ';', $attribute );
@@ -3368,26 +3371,35 @@ class FooEvents_Calendar {
 	 */
 	public function display_meta_errors() {
 
-		if ( ! session_id() ) {
+		if ( ! function_exists( 'is_plugin_active' ) || ! function_exists( 'is_plugin_active_for_network' ) ) {
 
-			session_start();
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
 		}
 
-		if ( ! empty( $_SESSION ) ) {
+		if ( is_plugin_active( 'fooevents/fooevents.php' ) && is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 
-			if ( array_key_exists( 'fooevents_calendar_errors', $_SESSION ) ) {
+			if ( ! session_id() ) {
 
-				echo '<div class="error">';
-				foreach ( $_SESSION['fooevents_calendar_errors'] as $error ) {
-					echo '<p>' . esc_attr( $error ) . '</p>';
-				}
-				echo '</div>';
+				session_start();
 
 			}
 
-			unset( $_SESSION['fooevents_calendar_errors'] );
+			if ( ! empty( $_SESSION ) ) {
 
+				if ( array_key_exists( 'fooevents_calendar_errors', $_SESSION ) ) {
+
+					echo '<div class="error">';
+					foreach ( $_SESSION['fooevents_calendar_errors'] as $error ) {
+						echo '<p>' . esc_attr( $error ) . '</p>';
+					}
+					echo '</div>';
+
+				}
+
+				unset( $_SESSION['fooevents_calendar_errors'] );
+
+			}
 		}
 	}
 }
