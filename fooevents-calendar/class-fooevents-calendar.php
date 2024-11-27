@@ -31,7 +31,7 @@ class FooEvents_Calendar {
 		add_action( 'widgets_init', array( $this, 'include_widgets' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'include_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'include_styles' ) );
-		add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
+		add_action( 'init', array( $this, 'load_text_domain' ) );
 		add_action( 'admin_init', array( $this, 'register_scripts' ) );
 		add_action( 'admin_init', array( $this, 'register_styles' ) );
 		add_action( 'admin_init', array( $this, 'assign_admin_caps' ) );
@@ -227,7 +227,7 @@ class FooEvents_Calendar {
 
 		}
 
-				$this->config->plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/fooevents-calendar/fooevents-calendar.php' );
+				$this->config->plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/fooevents-calendar/fooevents-calendar.php', false, false );
 	}
 
 	/**

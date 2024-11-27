@@ -2,6 +2,11 @@
 UPDATE LOG
 
 ------------------
+1.7.8
+FIXED: Wordpress 6.7 load text domain compatibility.
+FIXED: Various other small bugs and performance updates.
+TESTED ON: WordPress 6.7.1 and WooCommerce 9.4.2.
+
 1.7.7
 FIXED: Post type association bug on new installs.
 FIXED: Date picker styling bug when WooCommerce plugin not active.
