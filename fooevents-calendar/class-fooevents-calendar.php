@@ -1769,13 +1769,12 @@ class FooEvents_Calendar {
 
 		}
 
-		// $events = new WP_Query( $args );
+		$events = new WP_Query( $args );
 
-		$events = get_posts( $args );
+		//$events = get_posts( $args );
+		//return $events;
 
-		return $events;
-
-		// return $events->get_posts();
+		return $events->get_posts();
 	}
 
 	/**

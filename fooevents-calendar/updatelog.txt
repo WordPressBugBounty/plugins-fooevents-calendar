@@ -2,6 +2,11 @@
 UPDATE LOG
 
 ------------------
+1.7.10
+FIXED: WPML and events listing bug.
+FIXED: Various other small bugs and performance updates.
+TESTED ON: WordPress 6.7.1 and WooCommerce 9.5.2.
+
 1.7.8
 FIXED: Wordpress 6.7 load text domain compatibility.
 FIXED: Various other small bugs and performance updates.
