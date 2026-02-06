@@ -42,6 +42,13 @@
 	</td>
 </tr>
 <tr valign="top">
+	<th scope="row"><?php esc_attr_e( 'Display number of tickets left', 'fooevents-calendar' ); ?></th>
+	<td>
+		<input type="checkbox" name="globalFooEventsDisplayStock" id="globalFooEventsDisplayStock" value="yes" <?php echo esc_attr( $global_fooevents_display_stock_checked ); ?>>
+		<img class="help_tip fooevents-tooltip" title="<?php esc_attr_e( 'Displays the stock of the event or booking slot next to the title', 'fooevents-calendar' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/fooevents-calendar/images/help.png" height="16" width="16" />
+	</td>
+</tr>
+<tr valign="top">
 	<th scope="row"><?php esc_attr_e( 'Calendar theme', 'fooevents-calendar' ); ?></th>
 	<td>
 		<select name="globalFooEventsCalendarTheme" id="globalFooEventsCalendarTheme">

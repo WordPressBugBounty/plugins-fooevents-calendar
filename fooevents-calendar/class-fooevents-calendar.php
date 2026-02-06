@@ -164,11 +164,11 @@ class FooEvents_Calendar {
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'fooevents-calendar-admin-style', $this->config->stylesPath . 'calendar-admin.css', array(), $this->config->plugin_data['Version'] );
 
-		// if ( ( isset( $_GET['post'] ) && isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) || ( isset( $_GET['page'] ) && 'fooevents-event-report' === $_GET['page'] ) || ( isset( $_GET['post_type'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+		if ( ( isset( $_GET['post'] ) && isset( $_GET['action'] ) && 'edit' === $_GET['action'] ) || ( isset( $_GET['page'] ) && 'fooevents-event-report' === $_GET['page'] ) || ( isset( $_GET['post_type'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 
 			wp_enqueue_style( 'fooevents-calendar-jquery', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css', array(), '1.0.0' );
 
-		// }
+		}
 
 		if ( ! is_plugin_active( 'fooevents/fooevents.php' ) ) {
 
@@ -274,6 +274,7 @@ class FooEvents_Calendar {
 		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsTwentyFourHour' );
 		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsStartDay' );
 		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsAllDayEvent' );
+		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsDisplayStock' );
 		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsCalendarTheme' );
 		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsCalendarListTheme' );
 		register_setting( 'fooevents-calendar-settings-calendar', 'globalFooEventsCalendarPostTypes' );
@@ -335,7 +336,15 @@ class FooEvents_Calendar {
 		$global_fooevents_all_day_event_checked = '';
 		if ( 'yes' === $global_fooevents_all_day_event ) {
 
-			$global_fooevents_all_day_event_checked = 'checked="checked"';
+			$global_fooevents_all_day_event_checked = 'checked=checked';
+
+		}
+
+		$global_fooevents_display_stock         = get_option( 'globalFooEventsDisplayStock' );
+		$global_fooevents_display_stock_checked = '';
+		if ( 'yes' === $global_fooevents_display_stock ) {
+
+			$global_fooevents_display_stock_checked = 'checked=checked';
 
 		}
 
@@ -343,10 +352,9 @@ class FooEvents_Calendar {
 		$global_fooevents_calendar_list_theme = get_option( 'globalFooEventsCalendarListTheme' );
 		$global_fooevents_calendar_post_types = get_option( 'globalFooEventsCalendarPostTypes' );
 
-
 		if ( empty( $global_fooevents_calendar_post_types ) ) {
 
-			$global_fooevents_calendar_post_types = array('post', 'page');
+			$global_fooevents_calendar_post_types = array( 'post', 'page' );
 
 		}
 
@@ -1369,6 +1377,14 @@ class FooEvents_Calendar {
 
 			$fooevents_bookings = new FooEvents_Bookings();
 			$booking_events     = $fooevents_bookings->get_bookings_for_calendar( $include_cats );
+			$only_start_date    = get_option( 'globalFooEventsStartDay' );
+
+			/* Remove additional slots on each date if "Only display start date" is selected */
+			if ( 'both' === $only_start_date || 'eventlist' === $only_start_date ) {
+
+				$booking_events = $this->remove_slots( $booking_events );
+
+			}
 
 			$events = array_merge_recursive( $events, $booking_events );
 
@@ -1571,6 +1587,14 @@ class FooEvents_Calendar {
 
 			$fooevents_bookings = new FooEvents_Bookings( true );
 			$booking_events     = $fooevents_bookings->get_bookings_for_calendar( $include_cats, $product_ids );
+			$only_start_date    = get_option( 'globalFooEventsStartDay' );
+
+			/* Remove additional slots on each date if "Only display start date" is selected */
+			if ( 'both' === $only_start_date || 'calendar' === $only_start_date ) {
+
+				$booking_events = $this->remove_slots( $booking_events );
+
+			}
 
 			$events = array_merge_recursive( $events, $booking_events );
 
@@ -1613,6 +1637,43 @@ class FooEvents_Calendar {
 			return $calendar;
 
 		}
+	}
+
+	/**
+	 * Remove additional slots on each date if "Only display start date" is selected
+	 *
+	 * @param array $booking_events list of booking slots for all events.
+	 * @return array
+	 */
+	public function remove_slots( $booking_events ) {
+
+		$events[] = array();
+
+		foreach ( $booking_events['events'] as $key => $slot ) {
+
+			$events_key = '' . $slot['post_id'];
+
+			if ( null !== $events[ $events_key ] && in_array( $slot['start'], $events[ $events_key ] ) ) {
+
+				unset( $booking_events['events'][ $key ] );
+				array_values( $booking_events['events'] );
+
+			} else {
+
+				if ( is_numeric( substr( $booking_events['events'][ $key ]['title'], strrpos( $booking_events['events'][ $key ]['title'], '(' ) + 1, 1 ) ) ) {
+					$booking_events['events'][ $key ]['title'] = substr( $booking_events['events'][ $key ]['title'], 0, strrpos( $booking_events['events'][ $key ]['title'], '(' ) );
+				}
+
+				if ( null === $events[ $events_key ] ) {
+					$events[ $events_key ] = array();
+				}
+
+				array_push( $events[ $events_key ], $slot['start'] );
+
+			}
+		}
+
+		return $booking_events;
 	}
 
 	/**
@@ -1771,8 +1832,8 @@ class FooEvents_Calendar {
 
 		$events = new WP_Query( $args );
 
-		//$events = get_posts( $args );
-		//return $events;
+		// $events = get_posts( $args );
+		// return $events;
 
 		return $events->get_posts();
 	}
@@ -1872,11 +1933,28 @@ class FooEvents_Calendar {
 
 			}
 
-			$stock    = '';
-			$in_stock = '';
+			$stock       = '';
+			$in_stock    = '';
+			$stock_class = '';
 			if ( $product ) {
 				$stock    = $product->get_stock_quantity();
 				$in_stock = $product->is_in_stock();
+			}
+
+			$stock_nr = get_post_meta( $event->ID, '_stock', true );
+			if ( 0 === (int) $stock_nr && '' !== $stock_nr ) {
+				$stock_class = 'fooevents_out_of_stock';
+			}
+			$global_display_stock = get_option( 'globalFooEventsDisplayStock' );
+
+			if ( 'yes' === $global_display_stock ) {
+				if ( '' !== $stock_nr ) {
+					$stock_display = ' (' . $stock_nr . ')';
+				} else {
+					$stock_display = '';
+				}
+			} else {
+				$stock_display = '';
 			}
 
 			$event_date_unformated  = get_post_meta( $event->ID, 'WooCommerceEventsDate', true );
@@ -1966,7 +2044,7 @@ class FooEvents_Calendar {
 			if ( 'bookings' !== $event_type ) {
 
 				$json_events['events'][ $x ] = array(
-					'title'                 => $event->post_title,
+					'title'                 => $event->post_title . $stock_display,
 					'allDay'                => $all_day_event,
 					'start'                 => $event_date,
 					'unformated_date'       => $event_date_unformated,
@@ -1978,6 +2056,7 @@ class FooEvents_Calendar {
 					'location'              => $location,
 					'post_id'               => $event->ID,
 					'stock_num'             => $stock,
+					'className'             => $stock_class,
 				);
 
 			}
@@ -2094,7 +2173,7 @@ class FooEvents_Calendar {
 							$event_date = str_replace( ' ', 'T', $event_date );
 
 							$json_events['events'][ $x ] = array(
-								'title'                 => $event->post_title,
+								'title'                 => $event->post_title . $stock_display,
 								'allDay'                => $all_day_event,
 								'start'                 => $event_date,
 								'unformated_date'       => $date,
@@ -2106,6 +2185,7 @@ class FooEvents_Calendar {
 								'post_id'               => $event->ID,
 								'multi_day'             => 'selected',
 								'stock_num'             => $stock,
+								'className'             => $stock_class,
 							);
 
 							if ( $include_desc ) {
@@ -2331,6 +2411,14 @@ class FooEvents_Calendar {
 				'id'    => 'globalFooEventsAllDayEvent',
 				'value' => 'yes',
 				'desc'  => __( 'Removes event time from calendar entry titles.', 'fooevents-calendar' ),
+				'class' => 'text uploadfield',
+			),
+			'globalFooEventsDisplayStock'      => array(
+				'name'  => __( 'Display number of tickets left', 'fooevents-calendar' ),
+				'type'  => 'checkbox',
+				'id'    => 'globalFooEventsDisplayStock',
+				'value' => 'yes',
+				'desc'  => __( 'Displays the stock of the event or booking slot next to the title.', 'fooevents-calendar' ),
 				'class' => 'text uploadfield',
 			),
 			'globalFooEventsCalendarTheme'     => array(
@@ -2904,13 +2992,13 @@ class FooEvents_Calendar {
 			case 'jS F Y':
 				return( 'd MM, yy' );
 			case 'F j, Y':
-				return( 'MM dd, yy' );
+				return( 'MM d, yy' );
 			case 'F j Y':
-				return( 'MM dd yy' );
+				return( 'MM d yy' );
 			case 'j F, Y':
-				return( 'dd MM, yy' );
+				return( 'd MM, yy' );
 			case 'M. j, Y':
-				return( 'M. dd, yy' );
+				return( 'M. d, yy' );
 			case 'M. d, Y':
 				return( 'M. dd, yy' );
 			case 'mm/dd/yyyy':
@@ -2953,6 +3041,10 @@ class FooEvents_Calendar {
 				return( 'DD d MM yy' );
 			case 'l, j M Y':
 				return( 'DD, d M yy' );
+			case 'M d / Y':
+				return( 'M dd / yy' );
+			case 'M j / Y':
+				return( 'M d / yy' );
 			default:
 				return( 'yy-mm-dd' );
 		}
