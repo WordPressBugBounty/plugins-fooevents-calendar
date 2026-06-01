@@ -129,7 +129,14 @@ class FooEvents_Calendar {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'fooevents-calendar-admin-script', $this->config->scriptsPath . 'calendar-admin.js', array( 'jquery', 'jquery-ui-datepicker', 'wp-color-picker' ), $this->config->plugin_data['Version'], true );
-		wp_enqueue_script( 'fooevents-calendar-moment', $this->config->scriptsPath . 'moment.js', array( 'jquery' ), '2.29.3', false );
+
+		if ( is_admin() ) {
+			// Force the use of the built-in WordPress moment handle
+			wp_enqueue_script( 'wp-moment' );
+		} else {
+			wp_enqueue_script( 'fooevents-calendar-moment', $this->config->scriptsPath . 'moment.js', array( 'jquery' ), '2.29.3', false );
+		}
+
 		wp_enqueue_script( 'fooevents-calendar-full-callendar', $this->config->scriptsPath . 'fullcalendar.min.js', array( 'jquery' ), '1.0.0', false );
 		wp_enqueue_script( 'fooevents-calendar-full-callendar-locale', $this->config->scriptsPath . 'locale-all.js', array( 'jquery' ), '1.0.0', false );
 
