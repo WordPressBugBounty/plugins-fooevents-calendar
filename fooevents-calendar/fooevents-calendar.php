@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Events Calendar by FooEvents
  * Description: Display your events in a stylish calendar on your WordPress website using simple short codes and widgets.
- * Version: 2.0.1
+ * Version: 2.0.2
  * Author: FooEvents
  * Plugin URI: https://www.fooevents.com/fooevents-calendar/
  * Author URI: https://www.fooevents.com/

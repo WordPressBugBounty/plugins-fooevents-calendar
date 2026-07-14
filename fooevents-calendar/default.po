@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FooEvents Calendar\n"
-"POT-Creation-Date: 2026-06-01 12:44+0200\n"
-"PO-Revision-Date: 2026-06-01 12:44+0200\n"
+"POT-Creation-Date: 2026-07-14 12:11+0200\n"
+"PO-Revision-Date: 2026-07-14 12:11+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
-#: class-fooevents-calendar.php:145 class-fooevents-calendar.php:1540
+#: class-fooevents-calendar.php:145 class-fooevents-calendar.php:1550
 msgid "Today"
 msgstr ""
 
@@ -31,12 +31,13 @@ msgid "Show a different month"
 msgstr ""
 
 #: class-fooevents-calendar.php:261 templates/calendar-options-layout.php:16
+#: templates/calendar-options-layout.php:21
 msgid "FooEvents"
 msgstr ""
 
-#: class-fooevents-calendar.php:269 class-fooevents-calendar.php:2394
+#: class-fooevents-calendar.php:269 class-fooevents-calendar.php:2404
 #: src/fooevents-calendar-shortcode/edit.js:66
-#: templates/calendar-options-layout.php:26
+#: templates/calendar-options-layout.php:31
 msgid "Calendar Settings"
 msgstr ""
 
@@ -60,101 +61,101 @@ msgstr ""
 msgid "Day"
 msgstr ""
 
-#: class-fooevents-calendar.php:908
+#: class-fooevents-calendar.php:917
 msgid "Event start date required for Eventbrite."
 msgstr ""
 
-#: class-fooevents-calendar.php:914
+#: class-fooevents-calendar.php:923
 msgid "Event end date required for Eventbrite."
 msgstr ""
 
-#: class-fooevents-calendar.php:920
+#: class-fooevents-calendar.php:929
 msgid "Event title required for Eventbrite."
 msgstr ""
 
-#: class-fooevents-calendar.php:1215
+#: class-fooevents-calendar.php:1224
 #, php-format
 msgid "%1$d events added. %2$d events updated."
 msgstr ""
 
-#: class-fooevents-calendar.php:1285 class-fooevents-calendar.php:1433
+#: class-fooevents-calendar.php:1294 class-fooevents-calendar.php:1443
 msgid "Book ticket"
 msgstr ""
 
-#: class-fooevents-calendar.php:2400
+#: class-fooevents-calendar.php:2410
 msgid "Enable 24 hour time format"
 msgstr ""
 
-#: class-fooevents-calendar.php:2404
+#: class-fooevents-calendar.php:2414
 msgid "Uses 24 hour time format on the calendar."
 msgstr ""
 
-#: class-fooevents-calendar.php:2408
+#: class-fooevents-calendar.php:2418
 msgid "Only display start day"
 msgstr ""
 
-#: class-fooevents-calendar.php:2412
+#: class-fooevents-calendar.php:2422
 msgid "When multi-day plugin is active only display the event start day"
 msgstr ""
 
-#: class-fooevents-calendar.php:2416
+#: class-fooevents-calendar.php:2426
 msgid "Enable full day events"
 msgstr ""
 
-#: class-fooevents-calendar.php:2420
+#: class-fooevents-calendar.php:2430
 msgid "Removes event time from calendar entry titles."
 msgstr ""
 
-#: class-fooevents-calendar.php:2424 templates/calendar-options.php:45
+#: class-fooevents-calendar.php:2434 templates/calendar-options.php:45
 msgid "Display number of tickets left"
 msgstr ""
 
-#: class-fooevents-calendar.php:2428
+#: class-fooevents-calendar.php:2438
 msgid "Displays the stock of the event or booking slot next to the title."
 msgstr ""
 
-#: class-fooevents-calendar.php:2432 templates/calendar-options.php:52
+#: class-fooevents-calendar.php:2442 templates/calendar-options.php:52
 msgid "Calendar theme"
 msgstr ""
 
-#: class-fooevents-calendar.php:2438 class-fooevents-calendar.php:2454
+#: class-fooevents-calendar.php:2448 class-fooevents-calendar.php:2464
 #: templates/calendar-options.php:55 templates/calendar-options.php:68
 msgid "Default"
 msgstr ""
 
-#: class-fooevents-calendar.php:2439 templates/calendar-options.php:56
+#: class-fooevents-calendar.php:2449 templates/calendar-options.php:56
 msgid "Light"
 msgstr ""
 
-#: class-fooevents-calendar.php:2440 templates/calendar-options.php:57
+#: class-fooevents-calendar.php:2450 templates/calendar-options.php:57
 msgid "Dark"
 msgstr ""
 
-#: class-fooevents-calendar.php:2441 templates/calendar-options.php:58
+#: class-fooevents-calendar.php:2451 templates/calendar-options.php:58
 msgid "Flat"
 msgstr ""
 
-#: class-fooevents-calendar.php:2442 templates/calendar-options.php:59
+#: class-fooevents-calendar.php:2452 templates/calendar-options.php:59
 msgid "Minimalist"
 msgstr ""
 
-#: class-fooevents-calendar.php:2444
+#: class-fooevents-calendar.php:2454
 msgid "Selects calendar theme to be used on Wordpress frontend."
 msgstr ""
 
-#: class-fooevents-calendar.php:2448 templates/calendar-options.php:65
+#: class-fooevents-calendar.php:2458 templates/calendar-options.php:65
 msgid "Events list theme"
 msgstr ""
 
-#: class-fooevents-calendar.php:2455 templates/calendar-options.php:69
+#: class-fooevents-calendar.php:2465 templates/calendar-options.php:69
 msgid "Light Card"
 msgstr ""
 
-#: class-fooevents-calendar.php:2456 templates/calendar-options.php:70
+#: class-fooevents-calendar.php:2466 templates/calendar-options.php:70
 msgid "Dark Card"
 msgstr ""
 
-#: class-fooevents-calendar.php:2458
+#: class-fooevents-calendar.php:2468
 msgid "Selects events list theme to be used on Wordpress frontend."
 msgstr ""
 
@@ -259,107 +260,117 @@ msgstr ""
 msgid "Import Eventbrite events"
 msgstr ""
 
+#: templates/calendar-options-eventbrite.php:26
+msgid "Import"
+msgstr ""
+
 #: templates/calendar-options-layout.php:17
+#: templates/calendar-options-layout.php:22
 msgid "Welcome to the Events Calendar by FooEvents"
 msgstr ""
 
 #: templates/calendar-options-layout.php:18
+#: templates/calendar-options-layout.php:23
 msgid "Convert any post, page, or custom post type into an event and display them in a stylish calendar on your WordPress website. This unique approach ensures that the FooEvents Calendar is super flexible and very easy to use."
 msgstr ""
 
 #: templates/calendar-options-layout.php:19
+#: templates/calendar-options-layout.php:24
 msgid "Sell Tickets & Bookable Services"
 msgstr ""
 
 #: templates/calendar-options-layout.php:20
+#: templates/calendar-options-layout.php:25
 msgid "Calendar Demo"
 msgstr ""
 
 #: templates/calendar-options-layout.php:20
+#: templates/calendar-options-layout.php:25
 msgid "Documentation"
 msgstr ""
 
 #: templates/calendar-options-layout.php:20
+#: templates/calendar-options-layout.php:25
 msgid "Get FooEvents for FREE"
 msgstr ""
 
-#: templates/calendar-options-layout.php:37
+#: templates/calendar-options-layout.php:42
 msgid "How it works"
 msgstr ""
 
-#: templates/calendar-options-layout.php:39
+#: templates/calendar-options-layout.php:44
 msgid "Step 1:"
 msgstr ""
 
-#: templates/calendar-options-layout.php:39
+#: templates/calendar-options-layout.php:44
 msgid "Configure the Calendar Settings."
 msgstr ""
 
-#: templates/calendar-options-layout.php:40
+#: templates/calendar-options-layout.php:45
 msgid "Step 2:"
 msgstr ""
 
-#: templates/calendar-options-layout.php:40
+#: templates/calendar-options-layout.php:45
 msgid "Create or modify existing posts, pages, and custom post types and complete their event date and time settings."
 msgstr ""
 
-#: templates/calendar-options-layout.php:41
+#: templates/calendar-options-layout.php:46
 msgid "Step 3:"
 msgstr ""
 
-#: templates/calendar-options-layout.php:41
+#: templates/calendar-options-layout.php:46
 msgid "Embed a calendar on any post or page using an Events Calendar shortcode or widget."
 msgstr ""
 
-#: templates/calendar-options-layout.php:43
+#: templates/calendar-options-layout.php:48
 msgid "FooEvents Plugins"
 msgstr ""
 
-#: templates/calendar-options-layout.php:45
+#: templates/calendar-options-layout.php:50
 msgid "FooEvents for WooCommerce"
 msgstr ""
 
-#: templates/calendar-options-layout.php:45
+#: templates/calendar-options-layout.php:50
 msgid "core plugin"
 msgstr ""
 
-#: templates/calendar-options-layout.php:46
+#: templates/calendar-options-layout.php:51
 msgid "FooEvents Bookings"
 msgstr ""
 
-#: templates/calendar-options-layout.php:47
+#: templates/calendar-options-layout.php:52
 msgid "FooEvents Seating"
 msgstr ""
 
-#: templates/calendar-options-layout.php:48
+#: templates/calendar-options-layout.php:53
 msgid "FooEvents Point of Sale"
 msgstr ""
 
-#: templates/calendar-options-layout.php:49
+#: templates/calendar-options-layout.php:54
 msgid "FooEvents Custom Attendee Fields"
 msgstr ""
 
-#: templates/calendar-options-layout.php:50
+#: templates/calendar-options-layout.php:55
 msgid "FooEvents PDF Tickets"
 msgstr ""
 
-#: templates/calendar-options-layout.php:51
+#: templates/calendar-options-layout.php:56
 msgid "FooEvents Multi-day"
 msgstr ""
 
-#: templates/calendar-options-layout.php:52
+#: templates/calendar-options-layout.php:57
 msgid "FooEvents Express Check-in"
 msgstr ""
 
-#: templates/calendar-options-layout.php:53
+#: templates/calendar-options-layout.php:58
 msgid "FooEvents Check-ins Apps"
 msgstr ""
 
-#: templates/calendar-options-layout.php:53
+#: templates/calendar-options-layout.php:58
 msgid "iOS & Android"
 msgstr ""
 
-#: templates/calendar-options-layout.php:54
+#: templates/calendar-options-layout.php:59
 msgid "These extensions add additional functionality to the FooEvents for WooCommerce core plugin."
 msgstr ""
 
@@ -464,7 +475,7 @@ msgid "Sequential days"
 msgstr ""
 
 #: templates/eventmetabox.php:42
-msgid "Select days"
+msgid "Specific days"
 msgstr ""
 
 #: templates/eventmetabox.php:43

@@ -2,6 +2,11 @@
 UPDATE LOG
 
 ------------------
+2.0.2
+FIXED: Various template improvements. 
+FIXED: Various small bugs and performance updates.
+TESTED ON: WordPress 7.0.1 and WooCommerce 10.9.4.
+
 2.0.1
 FIXED: Various small bugs and performance updates.
 TESTED ON: WordPress 7.0 and WooCommerce 10.8.1.

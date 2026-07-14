@@ -16,7 +16,7 @@
 		<div class="fooevents-calendar-list-item">
 			<h3 class="fooevents-shortcode-title">
 				<?php if ( ! empty( $event['url'] ) ) : ?>
-				<a href="<?php echo $event['url']; ?>">
+				<a href="<?php echo esc_url( $event['url'] ); ?>">
 				<?php endif; ?>
 				<?php echo esc_html( $event['title'] ); ?>
 				<?php if ( ! empty( $event['url'] ) ) : ?>
@@ -24,16 +24,16 @@
 				<?php endif; ?>
 			</h3>
 				<?php if ( empty( $event['unformated_end_date'] ) ) : ?>
-			<p class="fooevents-shortcode-date"><?php echo esc_attr( $event['unformated_date'] ); ?>
+			<p class="fooevents-shortcode-date"><?php echo esc_html( $event['unformated_date'] ); ?>
 					<?php if ( isset( $event['time'] ) ) : ?>
-						<?php echo ' ' . esc_attr( $event['time'] ); ?>
+						<?php echo ' ' . esc_html( $event['time'] ); ?>
 					<?php endif; ?>
 			</p>
 			<?php else : ?>
-			<p class="fooevents-shortcode-date"><?php echo esc_attr( $event['unformated_date'] ); ?> - <?php echo esc_attr( $event['unformated_end_date'] ); ?></p>
+			<p class="fooevents-shortcode-date"><?php echo esc_html( $event['unformated_date'] ); ?> - <?php echo esc_html( $event['unformated_end_date'] ); ?></p>
 			<?php endif; ?>
 				<?php if ( ! empty( $thumbnail ) ) : ?>
-			<img src="<?php echo esc_attr( $thumbnail ); ?>" class="fooevents-calendar-list-thumb"/>
+			<img src="<?php echo esc_url( $thumbnail ); ?>" class="fooevents-calendar-list-thumb"/>
 			<?php endif; ?>
 				<?php if ( ! empty( $event['desc'] ) ) : ?>
 			<p class="fooevents-calendar-list-desc"><?php echo wp_kses_post( $event['desc'] ); ?></p>
@@ -41,7 +41,7 @@
 				<?php if ( ! empty( $event['in_stock'] ) && 'yes' === $event['in_stock'] ) : ?>
 			<p>
 					<?php if ( ! empty( $event['url'] ) ) : ?>
-					<a class="button" href="<?php echo esc_attr( $event['url'] ); ?>" rel="nofollow"><?php echo esc_attr( $event['ticketTerm'] ); ?></a>
+					<a class="button" href="<?php echo esc_url( $event['url'] ); ?>" rel="nofollow"><?php echo esc_html( $event['ticketTerm'] ); ?></a>
 				<?php endif; ?>
 			</p>
 			<?php endif; ?>

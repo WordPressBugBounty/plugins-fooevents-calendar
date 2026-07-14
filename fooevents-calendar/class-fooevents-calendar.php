@@ -544,7 +544,16 @@ class FooEvents_Calendar {
 
 		}
 
-		require $this->config->templatePath . 'eventmetabox.php';
+		// Check theme directory for template first.
+		if ( file_exists( $this->config->templatePathTheme . 'eventmetabox.php' ) ) {
+
+			include $this->config->templatePathTheme . 'eventmetabox.php';
+
+		} else {
+
+			include $this->config->templatePath . 'eventmetabox.php';
+
+		}
 
 		wp_nonce_field( 'fooevents_metabox_nonce', 'fooevents_metabox_nonce' );
 	}
@@ -1289,6 +1298,7 @@ class FooEvents_Calendar {
 			if ( ! empty( $event ) ) {
 
 				$thumbnail = get_the_post_thumbnail_url( $event->ID );
+				$permalink = get_the_permalink( $event->ID );
 
 				// Check theme directory for template first.
 				if ( file_exists( $this->config->templatePathTheme . 'event.php' ) ) {

@@ -39,7 +39,7 @@
 					<span>
 						<label><input type="radio" name="WooCommerceEventsType" value="single" <?php echo ( 'single' === $event_type || empty( $event_type ) ) ? 'CHECKED' : ''; ?>> <?php esc_attr_e( 'Single', 'fooevents-calendar' ); ?></label><br />
 						<label><input type="radio" name="WooCommerceEventsType" value="sequential" <?php echo ( 'sequential' === $event_type ) ? 'CHECKED' : ''; ?>> <?php esc_attr_e( 'Sequential days', 'fooevents-calendar' ); ?></label><br />
-						<label><input type="radio" name="WooCommerceEventsType" value="select" <?php echo ( 'select' === $event_type ) ? 'CHECKED' : ''; ?>> <?php esc_attr_e( 'Select days', 'fooevents-calendar' ); ?></label>
+						<label><input type="radio" name="WooCommerceEventsType" value="select" <?php echo ( 'select' === $event_type ) ? 'CHECKED' : ''; ?>> <?php esc_attr_e( 'Specific days', 'fooevents-calendar' ); ?></label>
 						<img class="help_tip fooevents-tooltip" title="<?php esc_attr_e( "Select the type of multi-day event. 'Sequential' means the days are in consecutive order whereas 'Select' allows you to choose the exact days.", 'fooevents-calendar' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/fooevents-calendar/images/help.png" height="16" width="16" />
 						</span>
 
@@ -98,7 +98,7 @@
 					</select>
 				</p>
 			</div>
-					<?php $x++; ?>
+					<?php ++$x; ?>
 			<?php endforeach; ?>
 			<?php endif; ?>
 		</div>
