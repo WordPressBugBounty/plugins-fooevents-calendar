@@ -1,7 +1,8 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: FooEvents Calendar\n"
-"POT-Creation-Date: 2026-06-15 17:03-0700\n"
+"POT-Creation-Date: 2026-08-05T22:11:41+00:00\n"
 "PO-Revision-Date: 2026-06-15 17:03-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,151 +11,159 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.9\n"
-"X-Poedit-KeywordsList: __;_e;esc_attr_e;esc_attr__;esc_html_e\n"
 "X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_attr_e;esc_attr__;esc_html_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: class-fooevents-calendar.php:56
-msgid "Settings"
-msgstr "Impostazioni"
+#. Plugin Name of the plugin
+#: fooevents-calendar.php
+msgid "Events Calendar by FooEvents"
+msgstr ""
 
-#: class-fooevents-calendar.php:137
-msgid "Done"
-msgstr "Fatto"
+#. Plugin URI of the plugin
+#: fooevents-calendar.php
+msgid "https://www.fooevents.com/fooevents-calendar/"
+msgstr ""
 
-#: class-fooevents-calendar.php:138 class-fooevents-calendar.php:1525
-msgid "Today"
-msgstr "Oggi"
+#. Description of the plugin
+#: fooevents-calendar.php
+msgid "Display your events in a stylish calendar on your WordPress website using simple short codes and widgets."
+msgstr ""
 
-#: class-fooevents-calendar.php:141
-msgid "Show a different month"
-msgstr "Mostra un mese diverso"
-
-#: class-fooevents-calendar.php:254 templates/calendar-options-layout.php:16
+#. Author of the plugin
+#: fooevents-calendar.php class-fooevents-calendar.php:252
+#: templates/calendar-options-layout.php:16
+#: templates/calendar-options-layout.php:21
 msgid "FooEvents"
 msgstr "FooEvents"
 
-#: class-fooevents-calendar.php:262 class-fooevents-calendar.php:2334
+#. Author URI of the plugin
+#: fooevents-calendar.php
+msgid "https://www.fooevents.com/"
+msgstr ""
+
+#: class-fooevents-calendar.php:260 class-fooevents-calendar.php:2395
+#: templates/calendar-options-layout.php:31
 #: src/fooevents-calendar-shortcode/edit.js:66
-#: templates/calendar-options-layout.php:26
 msgid "Calendar Settings"
 msgstr "Impostazioni del calendario"
 
-#: class-fooevents-calendar.php:291
-msgid "You do not have sufficient permissions to access this page."
-msgstr "Non hai le autorizzazioni sufficienti per accedere a questa pagina."
-
-#: class-fooevents-calendar.php:395
+#: class-fooevents-calendar.php:393
 msgid "Imported Events"
 msgstr "Event importati"
 
-#: class-fooevents-calendar.php:396
+#: class-fooevents-calendar.php:394
 msgid "Imported Event"
 msgstr "Evento importato"
 
-#: class-fooevents-calendar.php:431
+#: class-fooevents-calendar.php:429
 msgid "Event Settings"
 msgstr "Impostazioni dell'evento"
 
-#: class-fooevents-calendar.php:499
+#: class-fooevents-calendar.php:497
 msgid "Day"
 msgstr "Giorno"
 
-#: class-fooevents-calendar.php:901
+#: class-fooevents-calendar.php:908
 msgid "Event start date required for Eventbrite."
 msgstr "Data di inizio dell'evento richiesta per Eventbrite."
 
-#: class-fooevents-calendar.php:907
+#: class-fooevents-calendar.php:914
 msgid "Event end date required for Eventbrite."
 msgstr "Data di fine evento richiesta per Eventbrite."
 
-#: class-fooevents-calendar.php:913
+#: class-fooevents-calendar.php:920
 msgid "Event title required for Eventbrite."
 msgstr "Titolo dell'evento richiesto per Eventbrite."
 
-#: class-fooevents-calendar.php:1208
+#. translators: %1$d is replaced with the number of events added. %2$d is replaced with the number of events updated
+#: class-fooevents-calendar.php:1215
 #, php-format
 msgid "%1$d events added. %2$d events updated."
 msgstr "Sono stati aggiunti %1$d eventi. Sono stati aggiornati %2$d eventi."
 
-#: class-fooevents-calendar.php:1278 class-fooevents-calendar.php:1418
+#: class-fooevents-calendar.php:1285 class-fooevents-calendar.php:1434
 msgid "Book ticket"
-msgstr "Prenota biglietto"
+msgstr "Prenota un biglietto"
 
-#: class-fooevents-calendar.php:2340
+#: class-fooevents-calendar.php:1541
+msgid "Today"
+msgstr "Oggi"
+
+#: class-fooevents-calendar.php:2401
 msgid "Enable 24 hour time format"
 msgstr "Abilita il formato orario a 24 ore"
 
-#: class-fooevents-calendar.php:2344
+#: class-fooevents-calendar.php:2405
 msgid "Uses 24 hour time format on the calendar."
 msgstr "Utilizza il formato di orario a 24 ore sul calendario."
 
-#: class-fooevents-calendar.php:2348
+#: class-fooevents-calendar.php:2409
 msgid "Only display start day"
 msgstr "Mostra solo il giorno di inizio"
 
-#: class-fooevents-calendar.php:2352
+#: class-fooevents-calendar.php:2413
 msgid "When multi-day plugin is active only display the event start day"
 msgstr "Quando il plugin per eventi multi-giornalieri è attivo, visualizza solo il giorno di inizio dell'evento"
 
-#: class-fooevents-calendar.php:2356
+#: class-fooevents-calendar.php:2417
 msgid "Enable full day events"
 msgstr "Abilita eventi per l'intera giornata"
 
-#: class-fooevents-calendar.php:2360
+#: class-fooevents-calendar.php:2421
 msgid "Removes event time from calendar entry titles."
 msgstr "Rimuove l'orario dell'evento dai titoli delle voci del calendario."
 
-#: class-fooevents-calendar.php:2364 templates/calendar-options.php:45
+#: class-fooevents-calendar.php:2425 templates/calendar-options.php:45
 msgid "Display number of tickets left"
 msgstr "Mostra il numero di biglietti rimasti."
 
-#: class-fooevents-calendar.php:2368
+#: class-fooevents-calendar.php:2429
 msgid "Displays the stock of the event or booking slot next to the title."
 msgstr "Mostra la disponibilità dell'evento o dello slot di prenotazione accanto al titolo."
 
-#: class-fooevents-calendar.php:2372 templates/calendar-options.php:52
+#: class-fooevents-calendar.php:2433 templates/calendar-options.php:52
 msgid "Calendar theme"
 msgstr "Tema del calendario"
 
-#: class-fooevents-calendar.php:2378 class-fooevents-calendar.php:2394
+#: class-fooevents-calendar.php:2439 class-fooevents-calendar.php:2455
 #: templates/calendar-options.php:55 templates/calendar-options.php:68
 msgid "Default"
 msgstr "Predefinito"
 
-#: class-fooevents-calendar.php:2379 templates/calendar-options.php:56
+#: class-fooevents-calendar.php:2440 templates/calendar-options.php:56
 msgid "Light"
 msgstr "Luce"
 
-#: class-fooevents-calendar.php:2380 templates/calendar-options.php:57
+#: class-fooevents-calendar.php:2441 templates/calendar-options.php:57
 msgid "Dark"
 msgstr "Scuro"
 
-#: class-fooevents-calendar.php:2381 templates/calendar-options.php:58
+#: class-fooevents-calendar.php:2442 templates/calendar-options.php:58
 msgid "Flat"
 msgstr "Flat"
 
-#: class-fooevents-calendar.php:2382 templates/calendar-options.php:59
+#: class-fooevents-calendar.php:2443 templates/calendar-options.php:59
 msgid "Minimalist"
 msgstr "Minimalista"
 
-#: class-fooevents-calendar.php:2384
+#: class-fooevents-calendar.php:2445
 msgid "Selects calendar theme to be used on Wordpress frontend."
 msgstr "Scegli il tema del calendario da utilizzare sul frontend di Wordpress."
 
-#: class-fooevents-calendar.php:2388 templates/calendar-options.php:65
+#: class-fooevents-calendar.php:2449 templates/calendar-options.php:65
 msgid "Events list theme"
 msgstr "Tema elenco eventi"
 
-#: class-fooevents-calendar.php:2395 templates/calendar-options.php:69
+#: class-fooevents-calendar.php:2456 templates/calendar-options.php:69
 msgid "Light Card"
 msgstr "Carta Leggera"
 
-#: class-fooevents-calendar.php:2396 templates/calendar-options.php:70
+#: class-fooevents-calendar.php:2457 templates/calendar-options.php:70
 msgid "Dark Card"
 msgstr "Carta scura"
 
-#: class-fooevents-calendar.php:2398
+#: class-fooevents-calendar.php:2459
 msgid "Selects events list theme to be used on Wordpress frontend."
 msgstr "Scegli il tema della lista degli eventi da utilizzare sul frontend di Wordpress."
 
@@ -215,34 +224,6 @@ msgstr "ASC"
 msgid "DESC"
 msgstr "DESC"
 
-#: src/fooevents-calendar-shortcode/edit.js:68
-msgid "Calendar layout"
-msgstr "Layout del calendario"
-
-#: src/fooevents-calendar-shortcode/edit.js:82
-msgid "Limit number of events"
-msgstr "Limita il numero di eventi"
-
-#: src/fooevents-calendar-shortcode/edit.js:90
-msgid "Number of events"
-msgstr "Numero di eventi"
-
-#: src/fooevents-calendar-shortcode/edit.js:98
-msgid "Calendar start day"
-msgstr "Giorno di inizio del calendario"
-
-#: src/fooevents-calendar-shortcode/edit.js:109
-msgid "Display weekends"
-msgstr "Mostra i fine settimana."
-
-#: src/fooevents-calendar-shortcode/edit.js:116
-msgid "Filter by Category slugs"
-msgstr "Filtra per slug di categoria"
-
-#: src/fooevents-calendar-shortcode/edit.js:132
-msgid "Filter by Post or Product IDs"
-msgstr "Filtrare per ID di post o prodotto"
-
 #: templates/calendar-options-eventbrite.php:13
 msgid "Eventbrite"
 msgstr "Eventbrite"
@@ -259,107 +240,117 @@ msgstr "Chiave API opzionale che viene utilizzata per aggiungere eventi al tuo a
 msgid "Import Eventbrite events"
 msgstr "Importa eventi da Eventbrite"
 
+#: templates/calendar-options-eventbrite.php:26
+msgid "Import"
+msgstr "Importa"
+
 #: templates/calendar-options-layout.php:17
+#: templates/calendar-options-layout.php:22
 msgid "Welcome to the Events Calendar by FooEvents"
 msgstr "Benvenuti al Calendario degli Eventi di FooEvents"
 
 #: templates/calendar-options-layout.php:18
+#: templates/calendar-options-layout.php:23
 msgid "Convert any post, page, or custom post type into an event and display them in a stylish calendar on your WordPress website. This unique approach ensures that the FooEvents Calendar is super flexible and very easy to use."
 msgstr "Converti qualsiasi post, pagina o tipo di post personalizzato in un evento e mostrali in un calendario elegante sul tuo sito WordPress. Questo approccio unico garantisce che il Calendario FooEvents sia estremamente flessibile e molto facile da usare."
 
 #: templates/calendar-options-layout.php:19
+#: templates/calendar-options-layout.php:24
 msgid "Sell Tickets & Bookable Services"
 msgstr "Vendita di biglietti e servizi prenotabili"
 
 #: templates/calendar-options-layout.php:20
+#: templates/calendar-options-layout.php:25
 msgid "Calendar Demo"
 msgstr "Demo del calendario"
 
 #: templates/calendar-options-layout.php:20
+#: templates/calendar-options-layout.php:25
 msgid "Documentation"
 msgstr "Documentazione"
 
 #: templates/calendar-options-layout.php:20
+#: templates/calendar-options-layout.php:25
 msgid "Get FooEvents for FREE"
 msgstr "Ottieni FooEvents GRATIS"
 
-#: templates/calendar-options-layout.php:37
+#: templates/calendar-options-layout.php:42
 msgid "How it works"
 msgstr "Come funziona"
 
-#: templates/calendar-options-layout.php:39
+#: templates/calendar-options-layout.php:44
 msgid "Step 1:"
 msgstr "Passo 1:"
 
-#: templates/calendar-options-layout.php:39
+#: templates/calendar-options-layout.php:44
 msgid "Configure the Calendar Settings."
 msgstr "Configura le impostazioni del calendario."
 
-#: templates/calendar-options-layout.php:40
+#: templates/calendar-options-layout.php:45
 msgid "Step 2:"
 msgstr "Passo 2:"
 
-#: templates/calendar-options-layout.php:40
+#: templates/calendar-options-layout.php:45
 msgid "Create or modify existing posts, pages, and custom post types and complete their event date and time settings."
 msgstr "Crea o modifica post, pagine e tipi di post personalizzati esistenti e completa le impostazioni di data e ora degli eventi."
 
-#: templates/calendar-options-layout.php:41
+#: templates/calendar-options-layout.php:46
 msgid "Step 3:"
 msgstr "Passo 3:"
 
-#: templates/calendar-options-layout.php:41
+#: templates/calendar-options-layout.php:46
 msgid "Embed a calendar on any post or page using an Events Calendar shortcode or widget."
 msgstr "Incorpora un calendario in qualsiasi post o pagina utilizzando un shortcode o un widget del calendario degli eventi."
 
-#: templates/calendar-options-layout.php:43
+#: templates/calendar-options-layout.php:48
 msgid "FooEvents Plugins"
 msgstr "Plugin di FooEvents"
 
-#: templates/calendar-options-layout.php:45
+#: templates/calendar-options-layout.php:50
 msgid "FooEvents for WooCommerce"
 msgstr "FooEvents per WooCommerce"
 
-#: templates/calendar-options-layout.php:45
+#: templates/calendar-options-layout.php:50
 msgid "core plugin"
 msgstr "plugin principale"
 
-#: templates/calendar-options-layout.php:46
+#: templates/calendar-options-layout.php:51
 msgid "FooEvents Bookings"
 msgstr "Prenotazioni FooEvents"
 
-#: templates/calendar-options-layout.php:47
+#: templates/calendar-options-layout.php:52
 msgid "FooEvents Seating"
 msgstr "Posti di FooEvents"
 
-#: templates/calendar-options-layout.php:48
+#: templates/calendar-options-layout.php:53
 msgid "FooEvents Point of Sale"
 msgstr "Punto vendita di FooEvents"
 
-#: templates/calendar-options-layout.php:49
+#: templates/calendar-options-layout.php:54
 msgid "FooEvents Custom Attendee Fields"
 msgstr "Campi personalizzati per partecipanti di FooEvents"
 
-#: templates/calendar-options-layout.php:50
+#: templates/calendar-options-layout.php:55
 msgid "FooEvents PDF Tickets"
 msgstr "Biglietti PDF di FooEvents"
 
-#: templates/calendar-options-layout.php:51
+#: templates/calendar-options-layout.php:56
 msgid "FooEvents Multi-day"
 msgstr "FooEvents Multi-day"
 
-#: templates/calendar-options-layout.php:52
+#: templates/calendar-options-layout.php:57
 msgid "FooEvents Express Check-in"
 msgstr "Check-in rapido di FooEvents"
 
-#: templates/calendar-options-layout.php:53
+#: templates/calendar-options-layout.php:58
 msgid "FooEvents Check-ins Apps"
 msgstr "App di controllo degli accessi di FooEvents"
 
-#: templates/calendar-options-layout.php:53
+#: templates/calendar-options-layout.php:58
 msgid "iOS & Android"
 msgstr "iOS e Android"
 
-#: templates/calendar-options-layout.php:54
+#: templates/calendar-options-layout.php:59
 msgid "These extensions add additional functionality to the FooEvents for WooCommerce core plugin."
 msgstr "Queste estensioni aggiungono funzionalità aggiuntive al plugin principale FooEvents per WooCommerce."
 
@@ -449,7 +440,7 @@ msgstr "Numero di giorni:"
 
 #: templates/eventmetabox.php:32
 msgid "Select the number of days for multi-day events. This setting is used by the Event Check-ins apps to manage daily check-ins."
-msgstr "Seleziona il numero di giorni per gli eventi multi-giornata. Questa impostazione viene utilizzata dalle app di controllo degli eventi per gestire i check-in giornalieri."
+msgstr "Seleziona il numero di giorni per gli eventi di più giorni. Questa impostazione viene utilizzata dalle app Event Check-ins per gestire i check-in giornalieri."
 
 #: templates/eventmetabox.php:37
 msgid "Event type:"
@@ -464,8 +455,8 @@ msgid "Sequential days"
 msgstr "Giorni consecutivi"
 
 #: templates/eventmetabox.php:42
-msgid "Select days"
-msgstr "Seleziona giorni"
+msgid "Specific days"
+msgstr "Giorni specifici"
 
 #: templates/eventmetabox.php:43
 msgid "Select the type of multi-day event. 'Sequential' means the days are in consecutive order whereas 'Select' allows you to choose the exact days."
@@ -481,11 +472,11 @@ msgstr "Orario di fine:"
 
 #: templates/eventmetabox.php:108
 msgid "Set start/end times globally?"
-msgstr "Impostare gli orari di inizio/fine globalmente?"
+msgstr "Impostare gli orari di inizio/fine a livello globale?"
 
 #: templates/eventmetabox.php:110
 msgid "Enable this option to use the same start and end times for each day of a multi-day event."
-msgstr "Attiva questa opzione per utilizzare gli stessi orari di inizio e fine per ogni giorno di un evento plurigiornaliero."
+msgstr "Abilita questa opzione per usare gli stessi orari di inizio e fine per ogni giorno di un evento di più giorni."
 
 #: templates/eventmetabox.php:118
 msgid "Start date:"
@@ -517,7 +508,7 @@ msgstr "Fuso orario:"
 
 #: templates/eventmetabox.php:202
 msgid "The time zone where the event is taking place."
-msgstr "Fuso orario in cui si svolge l'evento."
+msgstr "Il fuso orario in cui si svolge l'evento."
 
 #: templates/eventmetabox.php:207
 msgid "Calendar background color:"
@@ -525,7 +516,7 @@ msgstr "Colore di sfondo del calendario:"
 
 #: templates/eventmetabox.php:209
 msgid "Color of the calendar background for the event. Also changes the background color of the date icon in the FooEvents Check-ins app."
-msgstr "Colore dello sfondo del calendario per l'evento. Cambia anche il colore dello sfondo dell'icona della data nell'app FooEvents Check-ins."
+msgstr "Colore dello sfondo del calendario per l'evento. Cambia anche il colore di sfondo dell'icona della data nell'app FooEvents Check-ins."
 
 #: templates/eventmetabox.php:214
 msgid "Calendar text color:"
@@ -533,8 +524,36 @@ msgstr "Colore del testo del calendario:"
 
 #: templates/eventmetabox.php:216
 msgid "Color of the calendar text for the event. Also changes the font color of the date icon in the FooEvents Check-ins app."
-msgstr "Colore del testo del calendario per l'evento. Cambia anche il colore del carattere dell'icona della data nell'app FooEvents Check-ins."
+msgstr "Colore del testo del calendario per l’evento. Cambia anche il colore del carattere dell’icona della data nell’app FooEvents Check-ins."
 
 #: templates/list-of-events.php:54
 msgid "No upcoming events."
 msgstr "Nessun evento imminente."
+
+#: src/fooevents-calendar-shortcode/edit.js:68
+msgid "Calendar layout"
+msgstr "layout del calendario"
+
+#: src/fooevents-calendar-shortcode/edit.js:82
+msgid "Limit number of events"
+msgstr "Limita il numero di eventi"
+
+#: src/fooevents-calendar-shortcode/edit.js:90
+msgid "Number of events"
+msgstr "Numero di eventi"
+
+#: src/fooevents-calendar-shortcode/edit.js:98
+msgid "Calendar start day"
+msgstr "giorno di inizio del calendario"
+
+#: src/fooevents-calendar-shortcode/edit.js:109
+msgid "Display weekends"
+msgstr "Mostra i fine settimana"
+
+#: src/fooevents-calendar-shortcode/edit.js:116
+msgid "Filter by Category slugs"
+msgstr "Filtra per slug di categoria"
+
+#: src/fooevents-calendar-shortcode/edit.js:132
+msgid "Filter by Post or Product IDs"
+msgstr "Filtra per ID di post o prodotti"

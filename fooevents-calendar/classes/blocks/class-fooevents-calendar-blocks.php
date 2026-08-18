@@ -15,9 +15,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 class FooEvents_Calendar_Blocks {
 
 	/**
-	 * Configuration object
+	 * Global utility object
 	 *
-	 * @var array $config contains paths and other configurations.
+	 * @var array $util contains configuration and global functions
+	 */
+	private $util;
+
+	/**
+	 * Global configuration object
+	 *
+	 * @var array $config contains paths and other configurations
 	 */
 	private $config;
 
@@ -33,12 +40,10 @@ class FooEvents_Calendar_Blocks {
 	 */
 	public function __construct() {
 
-		$this->config = new FooEvents_Calendar_Config();
+		$this->util   = new FooEvents_Calendar_Util();
+		$this->config = $this->util->config;
 
 		require_once $this->config->classPath . 'blocks/class-fooevents-calendar-blocks-calendar.php';
-		$this->blocks['calendar'] = new FooEvents_Calendar_Blocks_Calendar( $this->config );
-
+		$this->blocks['calendar'] = new FooEvents_Calendar_Blocks_Calendar( $this->util );
 	}
-
 }
-

@@ -2,6 +2,11 @@
 UPDATE LOG
 
 ------------------
+2.0.4
+FIXED: Various security updates.
+FIXED: Various small bugs and performance updates.
+TESTED ON: WordPress 7.0.4 and WooCommerce 11.0.1.
+
 2.0.2
 FIXED: Various template improvements. 
 FIXED: Various small bugs and performance updates.

@@ -9,10 +9,16 @@
 class FooEvents_Calendar {
 
 	/**
-	 * The main FooEvents config.
+	 * Global utility object
 	 *
-	 * @since 1.0.0
-	 * @var $config
+	 * @var array $util contains configuration and global functions
+	 */
+	private $util;
+
+	/**
+	 * Global configuration object
+	 *
+	 * @var array $config contains paths and other configurations
 	 */
 	private $config;
 
@@ -48,6 +54,26 @@ class FooEvents_Calendar {
 		add_filter( 'plugin_action_links_fooevents-calendar/fooevents-calendar.php', array( $this, 'plugins_settings_link' ) );
 
 		$this->plugin_init();
+	}
+
+	/**
+	 * Initializes plugin
+	 */
+	public function plugin_init() {
+
+		// Utility class.
+		$this->util = new FooEvents_Calendar_Util();
+
+		// Main config.
+		$this->config = $this->util->config;
+
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+
+		}
+
+				$this->config->plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/fooevents-calendar/fooevents-calendar.php', false, false );
 	}
 
 	public function plugins_settings_link( $links ) {
@@ -137,24 +163,6 @@ class FooEvents_Calendar {
 			wp_enqueue_script( 'fooevents-calendar-moment', $this->config->scriptsPath . 'moment.js', array( 'jquery' ), '2.29.3', false );
 		}
 
-		wp_enqueue_script( 'fooevents-calendar-full-callendar', $this->config->scriptsPath . 'fullcalendar.min.js', array( 'jquery' ), '1.0.0', false );
-		wp_enqueue_script( 'fooevents-calendar-full-callendar-locale', $this->config->scriptsPath . 'locale-all.js', array( 'jquery' ), '1.0.0', false );
-
-		$calendar_local_args = array(
-			'closeText'       => __( 'Done', 'fooevents-calendar' ),
-			'currentText'     => __( 'Today', 'fooevents-calendar' ),
-			'monthNames'      => $this->strip_array_indices( $wp_locale->month ),
-			'monthNamesShort' => $this->strip_array_indices( $wp_locale->month_abbrev ),
-			'monthStatus'     => __( 'Show a different month', 'fooevents-calendar' ),
-			'dayNames'        => $this->strip_array_indices( $wp_locale->weekday ),
-			'dayNamesShort'   => $this->strip_array_indices( $wp_locale->weekday_abbrev ),
-			'dayNamesMin'     => $this->strip_array_indices( $wp_locale->weekday_initial ),
-			'dateFormat'      => $this->date_format_php_to_js( get_option( 'date_format' ) ),
-			'firstDay'        => get_option( 'start_of_week' ),
-			'isRTL'           => $wp_locale->is_rtl(),
-		);
-
-		wp_localize_script( 'fooevents-calendar-admin-script', 'localObj', $calendar_local_args );
 	}
 
 	/**
@@ -221,23 +229,6 @@ class FooEvents_Calendar {
 	}
 
 	/**
-	 * Initializes plugin
-	 */
-	public function plugin_init() {
-
-		// Main config.
-		$this->config = new FooEvents_Calendar_Config();
-
-		if ( ! function_exists( 'get_plugin_data' ) ) {
-
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-
-		}
-
-				$this->config->plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/fooevents-calendar/fooevents-calendar.php', false, false );
-	}
-
-	/**
 	 * Adds the FooEvents menu item if not exists
 	 */
 	public function add_admin_menu() {
@@ -258,7 +249,7 @@ class FooEvents_Calendar {
 
 			add_menu_page(
 				null,
-				__( 'FooEvents', 'woocommerce-events' ),
+				__( 'FooEvents', 'fooevents-calendar' ),
 				'edit_posts',
 				'fooevents',
 				array( $this, 'redirect_to_tickets' ),
@@ -266,7 +257,7 @@ class FooEvents_Calendar {
 				'55.9'
 			);
 
-			add_submenu_page( 'fooevents', __( 'Calendar Settings', 'woocommerce-events' ), __( 'Calendar Settings', 'woocommerce-events' ), 'edit_posts', 'fooevents-settings', array( $this, 'display_settings_page' ) );
+			add_submenu_page( 'fooevents', __( 'Calendar Settings', 'fooevents-calendar' ), __( 'Calendar Settings', 'fooevents-calendar' ), 'edit_posts', 'fooevents-settings', array( $this, 'display_settings_page' ) );
 
 			remove_submenu_page( 'fooevents', 'fooevents' );
 
@@ -1291,7 +1282,7 @@ class FooEvents_Calendar {
 
 			if ( empty( $ticket_term ) || 1 === (int) $ticket_term ) {
 
-				$ticket_term = __( 'Book ticket', 'woocommerce-events' );
+				$ticket_term = __( 'Book ticket', 'fooevents-calendar' );
 
 			}
 
@@ -1440,7 +1431,7 @@ class FooEvents_Calendar {
 
 			if ( empty( $ticket_term ) || 1 === (int) $ticket_term ) {
 
-				$ticket_term = __( 'Book ticket', 'woocommerce-events' );
+				$ticket_term = __( 'Book ticket', 'fooevents-calendar' );
 
 			}
 
@@ -2010,7 +2001,7 @@ class FooEvents_Calendar {
 			}
 
 			$event_date = $event_date_unformated . ' ' . $event_hour . ':' . $event_minutes . $event_period;
-			$event_date = $this->convert_month_to_english( $event_date );
+			$event_date = $this->util->date->normalize_month_names( $event_date );
 			$format     = get_option( 'date_format' );
 			$event_date = str_replace( ',', '', $event_date );
 
@@ -2177,7 +2168,7 @@ class FooEvents_Calendar {
 
 							}
 
-							$event_date = $this->convert_month_to_english( $event_date );
+							$event_date = $this->util->date->normalize_month_names( $event_date );
 							$event_date = str_replace( ',', '', $event_date );
 
 							if ( 'd/m/Y' === $format ) {
@@ -2992,489 +2983,6 @@ class FooEvents_Calendar {
 	}
 
 	/**
-	 * Convert the php date format string to a js date format
-	 *
-	 * @param string $format WordPress date format.
-	 * @return string
-	 */
-	private function date_format_php_to_js( $format ) {
-
-		switch ( $format ) {
-			case 'D d-m-y':
-				return( 'D dd-mm-yy' );
-			case 'D d-m-Y':
-				return( 'D dd-mm-yy' );
-			case 'l d-m-Y':
-				return( 'DD dd-mm-yy' );
-			case 'jS F Y':
-				return( 'd MM, yy' );
-			case 'F j, Y':
-				return( 'MM d, yy' );
-			case 'F j Y':
-				return( 'MM d yy' );
-			case 'j F, Y':
-				return( 'd MM, yy' );
-			case 'M. j, Y':
-				return( 'M. d, yy' );
-			case 'M. d, Y':
-				return( 'M. dd, yy' );
-			case 'mm/dd/yyyy':
-				return( 'mm/dd/yy' );
-			case 'j F Y':
-				return( 'd MM yy' );
-			case 'Y/m/d':
-				return( 'yy/mm/dd' );
-			case 'm/d/Y':
-				return( 'mm/dd/yy' );
-			case 'd/m/Y':
-				return( 'dd/mm/yy' );
-			case 'Y-m-d':
-				return( 'yy-mm-dd' );
-			case 'm-d-Y':
-				return( 'mm-dd-yy' );
-			case 'd-m-Y':
-				return( 'dd-mm-yy' );
-			case 'j. FY':
-				return( 'd. MMyy' );
-			case 'j. F Y':
-				return( 'd. MM yy' );
-			case 'j.m.Y':
-				return( 'd.mm.yy' );
-			case 'd.m.Y':
-				return( 'dd.mm.yy' );
-			case 'j.n.Y':
-				return( 'd.m.yy' );
-			case 'j. n. Y':
-				return( 'd. m. yy' );
-			case 'j.n. Y':
-				return( 'd.m. yy' );
-			case 'j \d\e F \d\e Y':
-				return( "d 'de' MM 'de' yy" );
-			case 'D j M Y':
-				return( 'D d M yy' );
-			case 'D F j':
-				return( 'D MM d' );
-			case 'l j F Y':
-				return( 'DD d MM yy' );
-			case 'l, j M Y':
-				return( 'DD, d M yy' );
-			case 'M d / Y':
-				return( 'M dd / yy' );
-			case 'M j / Y':
-				return( 'M d / yy' );
-			default:
-				return( 'yy-mm-dd' );
-		}
-	}
-
-	/**
-	 * Array of month names for translation to English
-	 *
-	 * @param string $event_date unprocessed date.
-	 * @return string
-	 */
-	private function convert_month_to_english( $event_date ) {
-
-		$months = array(
-			// French.
-			'janvier'     => 'January',
-			'février'     => 'February',
-			'mars'        => 'March',
-			'avril'       => 'April',
-			'mai'         => 'May',
-			'juin'        => 'June',
-			'juillet'     => 'July',
-			'aout'        => 'August',
-			'août'        => 'August',
-			'septembre'   => 'September',
-			'octobre'     => 'October',
-
-			// German.
-			'Januar'      => 'January',
-			'Februar'     => 'February',
-			'März'        => 'March',
-			'Mai'         => 'May',
-			'Juni'        => 'June',
-			'Juli'        => 'July',
-			'Oktober'     => 'October',
-			'Dezember'    => 'December',
-			'Montag'      => '',
-			'Dienstag'    => '',
-			'Mittwoch'    => '',
-			'Donnerstag'  => '',
-			'Freitag'     => '',
-			'Samstag'     => '',
-			'Sonntag'     => '',
-
-			// Spanish.
-			'enero'       => 'January',
-			'febrero'     => 'February',
-			'marzo'       => 'March',
-			'abril'       => 'April',
-			'mayo'        => 'May',
-			'junio'       => 'June',
-			'julio'       => 'July',
-			'agosto'      => 'August',
-			'septiembre'  => 'September',
-			'setiembre'   => 'September',
-			'octubre'     => 'October',
-			'noviembre'   => 'November',
-			'diciembre'   => 'December',
-			'novembre'    => 'November',
-			'décembre'    => 'December',
-			'lunes'       => '',
-			'martes'      => '',
-			'miércoles'   => '',
-			'jueves'      => '',
-			'viernes'     => '',
-			'sábado'      => '',
-			'domingo'     => '',
-
-			// Catalan - Spain
-			'gener'       => 'January',
-			'febrer'      => 'February',
-			'març'        => 'March',
-			'abril'       => 'April',
-			'maig'        => 'May',
-			'juny'        => 'June',
-			'juliol'      => 'July',
-			'agost'       => 'August',
-			'setembre'    => 'September',
-			'octubre'     => 'October',
-			'novembre'    => 'November',
-			'desembre'    => 'December',
-
-			// Dutch.
-			'januari'     => 'January',
-			'februari'    => 'February',
-			'maart'       => 'March',
-			'april'       => 'April',
-			'mei'         => 'May',
-			'juni'        => 'June',
-			'juli'        => 'July',
-			'augustus'    => 'August',
-			'september'   => 'September',
-			'oktober'     => 'October',
-			'november'    => 'November',
-			'december'    => 'December',
-			'maandag'     => '',
-			'dinsdag'     => '',
-			'woensdag'    => '',
-			'donderdag'   => '',
-			'vrijdag'     => '',
-			'zaterdag'    => '',
-			'zondag'      => '',
-
-			// Italian.
-			'Gennaio'     => 'January',
-			'Febbraio'    => 'February',
-			'Marzo'       => 'March',
-			'Aprile'      => 'April',
-			'Maggio'      => 'May',
-			'Giugno'      => 'June',
-			'Luglio'      => 'July',
-			'Agosto'      => 'August',
-			'Settembre'   => 'September',
-			'Ottobre'     => 'October',
-			'Novembre'    => 'November',
-			'Dicembre'    => 'December',
-
-			// Polish.
-			'Styczeń'     => 'January',
-			'Luty'        => 'February',
-			'Marzec'      => 'March',
-			'Kwiecień'    => 'April',
-			'Maj'         => 'May',
-			'Czerwiec'    => 'June',
-			'Lipiec'      => 'July',
-			'Sierpień'    => 'August',
-			'Wrzesień'    => 'September',
-			'Październik' => 'October',
-			'Listopad'    => 'November',
-			'Grudzień'    => 'December',
-
-			// Afrikaans.
-			'Januarie'    => 'January',
-			'Februarie'   => 'February',
-			'Maart'       => 'March',
-			'Mei'         => 'May',
-			'Junie'       => 'June',
-			'Julie'       => 'July',
-			'Augustus'    => 'August',
-			'Oktober'     => 'October',
-			'Desember'    => 'December',
-
-			// Turkish.
-			'Ocak'        => 'January',
-			'Şubat'       => 'February',
-			'Mart'        => 'March',
-			'Nisan'       => 'April',
-			'Mayıs'       => 'May',
-			'Haziran'     => 'June',
-			'Temmuz'      => 'July',
-			'Ağustos'     => 'August',
-			'Eylül'       => 'September',
-			'Ekim'        => 'October',
-			'Kasım'       => 'November',
-			'Aralık'      => 'December',
-
-			// Portuguese.
-			'janeiro'     => 'January',
-			'fevereiro'   => 'February',
-			'março'       => 'March',
-			'abril'       => 'April',
-			'maio'        => 'May',
-			'junho'       => 'June',
-			'julho'       => 'July',
-			'agosto'      => 'August',
-			'setembro'    => 'September',
-			'outubro'     => 'October',
-			'novembro'    => 'November',
-			'dezembro'    => 'December',
-
-			// Swedish.
-			'Januari'     => 'January',
-			'Februari'    => 'February',
-			'Mars'        => 'March',
-			'April'       => 'April',
-			'Maj'         => 'May',
-			'Juni'        => 'June',
-			'Juli'        => 'July',
-			'Augusti'     => 'August',
-			'September'   => 'September',
-			'Oktober'     => 'October',
-			'November'    => 'November',
-			'December'    => 'December',
-
-			// Czech.
-			'leden'       => 'January',
-			'únor'        => 'February',
-			'březen'      => 'March',
-			'duben'       => 'April',
-			'květen'      => 'May',
-			'červen'      => 'June',
-			'červenec'    => 'July',
-			'srpen'       => 'August',
-			'září'        => 'September',
-			'říjen'       => 'October',
-			'listopad'    => 'November',
-			'prosinec'    => 'December',
-
-			// Norwegian.
-			'januar'      => 'January',
-			'februar'     => 'February',
-			'mars'        => 'March',
-			'april'       => 'April',
-			'mai'         => 'May',
-			'juni'        => 'June',
-			'juli'        => 'July',
-			'august'      => 'August',
-			'september'   => 'September',
-			'oktober'     => 'October',
-			'november'    => 'November',
-			'desember'    => 'December',
-
-			// Danish.
-			'januar'      => 'January',
-			'februar'     => 'February',
-			'marts'       => 'March',
-			'april'       => 'April',
-			'maj'         => 'May',
-			'juni'        => 'June',
-			'juli'        => 'July',
-			'august'      => 'August',
-			'september'   => 'September',
-			'oktober'     => 'October',
-			'november'    => 'November',
-			'december'    => 'December',
-
-			// Finnish.
-			'tammikuu'    => 'January',
-			'helmikuu'    => 'February',
-			'maaliskuu'   => 'March',
-			'huhtikuu'    => 'April',
-			'toukokuu'    => 'May',
-			'kesäkuu'     => 'June',
-			'heinäkuu'    => 'July',
-			'elokuu'      => 'August',
-			'syyskuu'     => 'September',
-			'lokakuu'     => 'October',
-			'marraskuu'   => 'November',
-			'joulukuu'    => 'December',
-
-			// Russian.
-			'Январь'      => 'January',
-			'Февраль'     => 'February',
-			'Март'        => 'March',
-			'Апрель'      => 'April',
-			'Май'         => 'May',
-			'Июнь'        => 'June',
-			'Июль'        => 'July',
-			'Август'      => 'August',
-			'Сентябрь'    => 'September',
-			'Октябрь'     => 'October',
-			'Ноябрь'      => 'November',
-			'Декабрь'     => 'December',
-
-			// Icelandic.
-			'Janúar'      => 'January',
-			'Febrúar'     => 'February',
-			'Mars'        => 'March',
-			'Apríl'       => 'April',
-			'Maí'         => 'May',
-			'Júní'        => 'June',
-			'Júlí'        => 'July',
-			'Ágúst'       => 'August',
-			'September'   => 'September',
-			'Oktober'     => 'October',
-			'Nóvember'    => 'November',
-			'Desember'    => 'December',
-
-			// Latvian.
-			'janvāris'    => 'January',
-			'februāris'   => 'February',
-			'marts'       => 'March',
-			'aprīlis'     => 'April',
-			'maijs'       => 'May',
-			'jūnijs'      => 'June',
-			'jūlijs'      => 'July',
-			'augusts'     => 'August',
-			'septembris'  => 'September',
-			'oktobris'    => 'October',
-			'novembris'   => 'November',
-			'decembris'   => 'December',
-
-			// Lithuanian.
-			'sausio'      => 'January',
-			'vasario'     => 'February',
-			'kovo'        => 'March',
-			'balandžio'   => 'April',
-			'gegužės'     => 'May',
-			'birželio'    => 'June',
-			'liepos'      => 'July',
-			'rugpjūčio'   => 'August',
-			'rugsėjo'     => 'September',
-			'spalio'      => 'October',
-			'lapkričio'   => 'November',
-			'gruodžio'    => 'December',
-
-			// Estonian.
-			'jaanuar'     => 'January',
-			'veebruar'    => 'February',
-			'märts'       => 'March',
-			'aprill'      => 'April',
-			'mai'         => 'May',
-			'juuni'       => 'June',
-			'juuli'       => 'July',
-			'august'      => 'August',
-			'september'   => 'September',
-			'oktoober'    => 'October',
-			'november'    => 'November',
-			'detsember'   => 'December',
-
-			// Greek.
-			'Ιανουάριος'  => 'January',
-			'Φεβρουάριος' => 'February',
-			'Μάρτιος'     => 'March',
-			'Απρίλιος'    => 'April',
-			'Μάιος'       => 'May',
-			'Ιούνιος'     => 'June',
-			'Ιούλιος'     => 'July',
-			'Αύγουστος'   => 'August',
-			'Σεπτέμβριος' => 'September',
-			'Οκτώβριος'   => 'October',
-			'Νοέμβριος'   => 'November',
-			'Δεκέμβριος'  => 'December',
-
-			// Slovak - Slovakia.
-			'január'      => 'January',
-			'február'     => 'February',
-			'marec'       => 'March',
-			'apríl'       => 'April',
-			'máj'         => 'May',
-			'jún'         => 'June',
-			'júl'         => 'July',
-			'august'      => 'August',
-			'september'   => 'September',
-			'október'     => 'October',
-			'november'    => 'November',
-			'december'    => 'December',
-
-			// Slovenian - Slovenia
-			'januar'      => 'January',
-			'februar'     => 'February',
-			'marec'       => 'March',
-			'april'       => 'April',
-			'maj'         => 'May',
-			'junij'       => 'June',
-			'julij'       => 'July',
-			'avgust'      => 'August',
-			'september'   => 'September',
-			'oktober'     => 'October',
-			'november'    => 'November',
-			'december'    => 'December',
-
-			// Romanian - Romania
-			'ianuarie'    => 'January',
-			'februarie'   => 'February',
-			'martie'      => 'March',
-			'aprilie'     => 'April',
-			'mai'         => 'May',
-			'iunie'       => 'June',
-			'iulie'       => 'July',
-			'august'      => 'August',
-			'septembrie'  => 'September',
-			'octombrie'   => 'October',
-			'noiembrie'   => 'November',
-			'decembrie'   => 'December',
-
-			// Croatian - Croatia.
-
-			'siječanj'    => 'January',
-			'veljača'     => 'February',
-			'ožujak'      => 'March',
-			'travanj'     => 'April',
-			'svibanj'     => 'May',
-			'lipanj'      => 'June',
-			'srpanj'      => 'July',
-			'kolovoz'     => 'August',
-			'rujan'       => 'September',
-			'listopad'    => 'October',
-			'studeni'     => 'November',
-			'prosinac'    => 'December',
-
-			// Bulgarian - Bulgaria.
-
-			'януари'      => 'January',
-			'февруари'    => 'February',
-			'март'        => 'March',
-			'април'       => 'April',
-			'май'         => 'May',
-			'юни'         => 'June',
-			'юли'         => 'July',
-			'август'      => 'August',
-			'септември'   => 'September',
-			'октомври'    => 'October',
-			'ноември'     => 'November',
-			'декември'    => 'December',
-
-		);
-
-		$pattern     = array_keys( $months );
-		$replacement = array_values( $months );
-
-		foreach ( $pattern as $key => $value ) {
-			$pattern[ $key ] = '/\b' . $value . '\b/iu';
-		}
-
-		$replaced_event_date = preg_replace( $pattern, $replacement, $event_date );
-
-		$replaced_event_date = str_replace( ' de ', ' ', $replaced_event_date );
-
-		return $replaced_event_date;
-	}
-
-	/**
 	 * Output FooEvents Calendar errors to admin screen
 	 */
 	public function display_meta_errors() {
@@ -3511,9 +3019,11 @@ class FooEvents_Calendar {
 		}
 	}
 }
+	
 
 add_action( 'admin_init', 'fooevents_calendar_redirect' );
 add_action( 'activated_plugin', 'fooevents_calendar_activate' );
+register_uninstall_hook( __FILE__, 'uninstall_fooevents' );
 
 /**
  *  Add option to redirect on plugin activation.
@@ -3558,4 +3068,20 @@ function fooevents_calendar_redirect() {
 
 		}
 	}
+}
+
+/**
+* Deletes calendar-related options from the database.
+*/
+function uninstall_fooevents_calendar() {
+
+	delete_option( 'globalFooEventsAllDayEvent' );
+	delete_option( 'globalFooEventsTwentyFourHour' );
+	delete_option( 'globalFooEventsDisplayStock' );
+	delete_option( 'globalFooEventsStartDay' );
+	delete_option( 'globalFooEventsCalendarTheme' );
+	delete_option( 'globalFooEventsCalendarListTheme' );
+	delete_option( 'globalFooEventsCalendarPostTypes' );
+	delete_option( 'globalFooEventsEventbriteToken' );
+
 }

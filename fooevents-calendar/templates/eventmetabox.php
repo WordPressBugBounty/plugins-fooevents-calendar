@@ -23,18 +23,18 @@
 		<?php if ( $multi_day_active ) : ?>
 		<div class="options_group" id="WooCommerceEventsNumDaysContainer">
 			<p class="form-field">
-					<label><?php esc_attr_e( 'Number of days:', 'fooevents-multiday-events' ); ?></label>
+					<label><?php esc_attr_e( 'Number of days:', 'fooevents-calendar' ); ?></label>
 					<select name="WooCommerceEventsNumDays" id="WooCommerceEventsNumDays">
 						<?php for ( $x = 1; $x <= 45; $x++ ) : ?>
 						<option value="<?php echo esc_attr( $x ); ?>" <?php echo ( $x === (int) $woocommerce_events_num_days ) ? 'SELECTED' : ''; ?>><?php echo esc_attr( $x ); ?></option>
 						<?php endfor; ?>
 					</select>
-					<img class="help_tip" data-tip="<?php esc_attr_e( 'Select the number of days for multi-day events. This setting is used by the Event Check-ins apps to manage daily check-ins.', 'fooevents-multiday-events' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/fooevents-calendar/images/help.png" height="16" width="16" />
+					<img class="help_tip" data-tip="<?php esc_attr_e( 'Select the number of days for multi-day events. This setting is used by the Event Check-ins apps to manage daily check-ins.', 'fooevents-calendar' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/fooevents-calendar/images/help.png" height="16" width="16" />
 			</p>
 		</div>
 		<div class="options_group" id="WooCommerceEventsTypeHolder">
 			<p class="form-field">
-				<label><?php esc_attr_e( 'Event type:', 'fooevents-multiday-events' ); ?></label> 
+				<label><?php esc_attr_e( 'Event type:', 'fooevents-calendar' ); ?></label> 
 
 					<span>
 						<label><input type="radio" name="WooCommerceEventsType" value="single" <?php echo ( 'single' === $event_type || empty( $event_type ) ) ? 'CHECKED' : ''; ?>> <?php esc_attr_e( 'Single', 'fooevents-calendar' ); ?></label><br />
@@ -58,7 +58,7 @@
 					<input type="text" class="WooCommerceEventsSelectDate" name="WooCommerceEventsSelectDate[]" value="<?php echo esc_attr( $event_date ); ?>"/>
 				</p>
 				<p class="form-field WooCommerceEventsSelectDateTimeContainer">
-					<label><?php esc_attr_e( 'Start time:', 'woocommerce-events' ); ?></label>
+					<label><?php esc_attr_e( 'Start time:', 'fooevents-calendar' ); ?></label>
 					<select name="WooCommerceEventsSelectDateHour[]" class="WooCommerceEventsSelectDateHour" id="WooCommerceEventsSelectDateHour-<?php echo esc_attr( $x ); ?>">
 						<?php for ( $y = 0; $y <= 23; $y++ ) : ?>
 							<?php $y = sprintf( '%02d', $y ); ?>
@@ -78,7 +78,7 @@
 					</select>
 				</p>
 				<p class="form-field WooCommerceEventsSelectDateTimeContainer">
-					<label><?php esc_attr_e( 'End time:', 'woocommerce-events' ); ?></label>
+					<label><?php esc_attr_e( 'End time:', 'fooevents-calendar' ); ?></label>
 					<select name="WooCommerceEventsSelectDateHourEnd[]" class="WooCommerceEventsSelectDateHourEnd" id="WooCommerceEventsSelectDateHourEnd-<?php echo esc_attr( $x ); ?>">
 						<?php for ( $y = 0; $y <= 23; $y++ ) : ?>
 							<?php $y = sprintf( '%02d', $y ); ?>
@@ -105,9 +105,9 @@
 		<!-- End select Days code -->
 		<div class="options_group" id="WooCommerceEventsSelectGlobalTimeContainer">
 			<p class="form-field">
-				<label><?php esc_attr_e( 'Set start/end times globally?', 'woocommerce-events' ); ?></label>
+				<label><?php esc_attr_e( 'Set start/end times globally?', 'fooevents-calendar' ); ?></label>
 				<input type="checkbox" name="WooCommerceEventsSelectGlobalTime" id="WooCommerceEventsSelectGlobalTime" value="on" <?php echo( 'on' === $woocommerce_events_select_global_time ) ? 'CHECKED' : ''; ?>>
-				<img class="help_tip" data-tip="<?php esc_attr_e( 'Enable this option to use the same start and end times for each day of a multi-day event.', 'woocommerce-events' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/fooevents-calendar/images/help.png" height="16" width="16" />
+				<img class="help_tip" data-tip="<?php esc_attr_e( 'Enable this option to use the same start and end times for each day of a multi-day event.', 'fooevents-calendar' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/fooevents-calendar/images/help.png" height="16" width="16" />
 			</p>
 		</div>
 		<?php endif; ?>
@@ -178,7 +178,7 @@
 		</div>
 		<div class="options_group">
 			<p class="form-field">
-				<label><?php esc_attr_e( 'Time zone:', 'woocommerce-events' ); ?></label>
+				<label><?php esc_attr_e( 'Time zone:', 'fooevents-calendar' ); ?></label>
 				<select name="WooCommerceEventsTimeZone" id="WooCommerceEventsTimeZone">
 					<option value="" 
 					<?php
@@ -199,21 +199,21 @@
 				?>
 				
 				</select>
-				<img class="help_tip fooevents-tooltip" title="<?php esc_attr_e( 'The time zone where the event is taking place.', 'woocommerce-events' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/fooevents-calendar/images/help.png" height="16" width="16" />
+				<img class="help_tip fooevents-tooltip" title="<?php esc_attr_e( 'The time zone where the event is taking place.', 'fooevents-calendar' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/fooevents-calendar/images/help.png" height="16" width="16" />
 			</p>
 		</div>
 		<div class="options_group">
 			<p class="form-field">
-				<label><?php esc_attr_e( 'Calendar background color:', 'woocommerce-events' ); ?></label>
+				<label><?php esc_attr_e( 'Calendar background color:', 'fooevents-calendar' ); ?></label>
 				<input type="text" class="woocommerce-events-color-field" id="WooCommerceEventsBackgroundColor" name="WooCommerceEventsBackgroundColor" value="<?php echo esc_html( $woocommerce_events_background_color ); ?>"/>
-				<img class="help_tip fooevents-tooltip" data-tip="<?php esc_attr_e( 'Color of the calendar background for the event. Also changes the background color of the date icon in the FooEvents Check-ins app.', 'woocommerce-events' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/woocommerce/assets/images/help.png" height="16" width="16" />
+				<img class="help_tip fooevents-tooltip" data-tip="<?php esc_attr_e( 'Color of the calendar background for the event. Also changes the background color of the date icon in the FooEvents Check-ins app.', 'fooevents-calendar' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/woocommerce/assets/images/help.png" height="16" width="16" />
 			</p>
 		</div>
 		<div class="options_group">
 			<p class="form-field">
-				<label><?php esc_attr_e( 'Calendar text color:', 'woocommerce-events' ); ?></label>
+				<label><?php esc_attr_e( 'Calendar text color:', 'fooevents-calendar' ); ?></label>
 				<input type="text" class="woocommerce-events-color-field" id="WooCommerceEventsTextColor" name="WooCommerceEventsTextColor" value="<?php echo esc_html( $woocommerce_events_text_color ); ?>"/>
-				<img class="help_tip fooevents-tooltip" data-tip="<?php esc_attr_e( 'Color of the calendar text for the event. Also changes the font color of the date icon in the FooEvents Check-ins app.', 'woocommerce-events' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/woocommerce/assets/images/help.png" height="16" width="16" />
+				<img class="help_tip fooevents-tooltip" data-tip="<?php esc_attr_e( 'Color of the calendar text for the event. Also changes the font color of the date icon in the FooEvents Check-ins app.', 'fooevents-calendar' ); ?>" src="<?php echo esc_attr( plugins_url() ); ?>/woocommerce/assets/images/help.png" height="16" width="16" />
 			</p>
 		</div>
 		<?php if ( $eventbrite_option ) : ?>

@@ -15,20 +15,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 class FooEvents_Calendar_Blocks_Calendar {
 
 	/**
-	 * Configuration object
+	 * Global utility object
+	 *
+	 * @var array $util contains configuration and global functions
+	 */
+	private $util;
+
+	/**
+	 * Global configuration object
 	 *
 	 * @var array $config contains paths and other configurations
 	 */
 	private $config;
+
 
 	/**
 	 * On plugin load
 	 *
 	 * @param array $config the configuration array.
 	 */
-	public function __construct( $config ) {
+	public function __construct( $util ) {
 
-		$this->config = $config;
+		$this->util   = $util;
+		$this->config = $util->config;
 
 		add_action( 'init', array( $this, 'register_blocks' ) );
 	}
