@@ -416,6 +416,8 @@ class FooEvents_Calendar_Util_Date {
 
 		$replaced_event_date = str_replace( ' de ', ' ', $replaced_event_date );
 
+		$replaced_event_date = preg_replace( '/(\d)\.\s+(?=\d)/', '$1.', $replaced_event_date );
+
 		return $replaced_event_date;
 	}
 
