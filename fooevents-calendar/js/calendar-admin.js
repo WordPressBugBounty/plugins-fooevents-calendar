@@ -46,6 +46,12 @@
                 'import': true
             };
 
+            if ((typeof fooeventsCalendarAdmin === "object") && (fooeventsCalendarAdmin !== null) && (typeof fooeventsCalendarAdmin.eventbriteImportNonce === "string")) {
+
+                data.nonce = fooeventsCalendarAdmin.eventbriteImportNonce;
+
+            }
+
             // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
             jQuery.post(ajaxurl, data, function(response) {
                 

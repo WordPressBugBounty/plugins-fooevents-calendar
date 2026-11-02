@@ -102,7 +102,49 @@ class Fooevents_Calendar_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		return $new_instance;
+		$instance = array();
+
+		if ( isset( $new_instance['type'] ) ) {
+
+			$type = sanitize_text_field( wp_unslash( $new_instance['type'] ) );
+
+			if ( 'Calendar' === $type || 'List' === $type ) {
+
+				$instance['type'] = $type;
+
+			}
+		}
+
+		if ( isset( $new_instance['title'] ) ) {
+
+			$instance['title'] = sanitize_text_field( wp_unslash( $new_instance['title'] ) );
+
+		}
+
+		if ( isset( $new_instance['number_of_events'] ) ) {
+
+			$instance['number_of_events'] = absint( $new_instance['number_of_events'] );
+
+		}
+
+		if ( isset( $new_instance['sort'] ) ) {
+
+			$sort = sanitize_text_field( wp_unslash( $new_instance['sort'] ) );
+
+			if ( 'asc' === $sort || 'desc' === $sort ) {
+
+				$instance['sort'] = $sort;
+
+			}
+		}
+
+		if ( isset( $new_instance['start_date'] ) ) {
+
+			$instance['start_date'] = sanitize_text_field( wp_unslash( $new_instance['start_date'] ) );
+
+		}
+
+		return $instance;
 
 	}
 

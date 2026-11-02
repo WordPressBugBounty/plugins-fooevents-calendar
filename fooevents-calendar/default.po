@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: FooEvents Calendar\n"
-"POT-Creation-Date: 2026-10-20 11:57+0200\n"
-"PO-Revision-Date: 2026-10-20 11:57+0200\n"
+"POT-Creation-Date: 2026-11-02 13:00+0200\n"
+"PO-Revision-Date: 2026-11-02 13:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -18,136 +18,152 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: class-fooevents-calendar.php:252 templates/calendar-options-layout.php:16
+#: class-fooevents-calendar.php:260 templates/calendar-options-layout.php:16
 #: templates/calendar-options-layout.php:21
 msgid "FooEvents"
 msgstr ""
 
-#: class-fooevents-calendar.php:260 class-fooevents-calendar.php:2395
+#: class-fooevents-calendar.php:268 class-fooevents-calendar.php:2496
 #: src/fooevents-calendar-shortcode/edit.js:66
 #: templates/calendar-options-layout.php:31
 msgid "Calendar Settings"
 msgstr ""
 
-#: class-fooevents-calendar.php:289
+#: class-fooevents-calendar.php:297 class-fooevents-calendar.php:1146
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: class-fooevents-calendar.php:393
+#: class-fooevents-calendar.php:401
 msgid "Imported Events"
 msgstr ""
 
-#: class-fooevents-calendar.php:394
+#: class-fooevents-calendar.php:402
 msgid "Imported Event"
 msgstr ""
 
-#: class-fooevents-calendar.php:429
+#: class-fooevents-calendar.php:445
 msgid "Event Settings"
 msgstr ""
 
-#: class-fooevents-calendar.php:497
+#: class-fooevents-calendar.php:525
 msgid "Day"
 msgstr ""
 
-#: class-fooevents-calendar.php:908
+#: class-fooevents-calendar.php:948
 msgid "Event start date required for Eventbrite."
 msgstr ""
 
-#: class-fooevents-calendar.php:914
+#: class-fooevents-calendar.php:961
 msgid "Event end date required for Eventbrite."
 msgstr ""
 
-#: class-fooevents-calendar.php:920
+#: class-fooevents-calendar.php:967
 msgid "Event title required for Eventbrite."
 msgstr ""
 
-#: class-fooevents-calendar.php:1215
+#: class-fooevents-calendar.php:1152 class-fooevents-calendar.php:1160
+msgid "Security check failed."
+msgstr ""
+
+#: class-fooevents-calendar.php:1168
+msgid "Eventbrite token not configured."
+msgstr ""
+
+#: class-fooevents-calendar.php:1186
+msgid "Unable to fetch Eventbrite user details."
+msgstr ""
+
+#: class-fooevents-calendar.php:1199
+msgid "Unable to fetch Eventbrite organization details."
+msgstr ""
+
+#: class-fooevents-calendar.php:1305
 #, php-format
 msgid "%1$d events added. %2$d events updated."
 msgstr ""
 
-#: class-fooevents-calendar.php:1285 class-fooevents-calendar.php:1434
+#: class-fooevents-calendar.php:1386 class-fooevents-calendar.php:1535
 msgid "Book ticket"
 msgstr ""
 
-#: class-fooevents-calendar.php:1541
+#: class-fooevents-calendar.php:1642
 msgid "Today"
 msgstr ""
 
-#: class-fooevents-calendar.php:2401
+#: class-fooevents-calendar.php:2502
 msgid "Enable 24 hour time format"
 msgstr ""
 
-#: class-fooevents-calendar.php:2405
+#: class-fooevents-calendar.php:2506
 msgid "Uses 24 hour time format on the calendar."
 msgstr ""
 
-#: class-fooevents-calendar.php:2409
+#: class-fooevents-calendar.php:2510
 msgid "Only display start day"
 msgstr ""
 
-#: class-fooevents-calendar.php:2413
+#: class-fooevents-calendar.php:2514
 msgid "When multi-day plugin is active only display the event start day"
 msgstr ""
 
-#: class-fooevents-calendar.php:2417
+#: class-fooevents-calendar.php:2518
 msgid "Enable full day events"
 msgstr ""
 
-#: class-fooevents-calendar.php:2421
+#: class-fooevents-calendar.php:2522
 msgid "Removes event time from calendar entry titles."
 msgstr ""
 
-#: class-fooevents-calendar.php:2425 templates/calendar-options.php:45
+#: class-fooevents-calendar.php:2526 templates/calendar-options.php:45
 msgid "Display number of tickets left"
 msgstr ""
 
-#: class-fooevents-calendar.php:2429
+#: class-fooevents-calendar.php:2530
 msgid "Displays the stock of the event or booking slot next to the title."
 msgstr ""
 
-#: class-fooevents-calendar.php:2433 templates/calendar-options.php:52
+#: class-fooevents-calendar.php:2534 templates/calendar-options.php:52
 msgid "Calendar theme"
 msgstr ""
 
-#: class-fooevents-calendar.php:2439 class-fooevents-calendar.php:2455
+#: class-fooevents-calendar.php:2540 class-fooevents-calendar.php:2556
 #: templates/calendar-options.php:55 templates/calendar-options.php:68
 msgid "Default"
 msgstr ""
 
-#: class-fooevents-calendar.php:2440 templates/calendar-options.php:56
+#: class-fooevents-calendar.php:2541 templates/calendar-options.php:56
 msgid "Light"
 msgstr ""
 
-#: class-fooevents-calendar.php:2441 templates/calendar-options.php:57
+#: class-fooevents-calendar.php:2542 templates/calendar-options.php:57
 msgid "Dark"
 msgstr ""
 
-#: class-fooevents-calendar.php:2442 templates/calendar-options.php:58
+#: class-fooevents-calendar.php:2543 templates/calendar-options.php:58
 msgid "Flat"
 msgstr ""
 
-#: class-fooevents-calendar.php:2443 templates/calendar-options.php:59
+#: class-fooevents-calendar.php:2544 templates/calendar-options.php:59
 msgid "Minimalist"
 msgstr ""
 
-#: class-fooevents-calendar.php:2445
+#: class-fooevents-calendar.php:2546
 msgid "Selects calendar theme to be used on Wordpress frontend."
 msgstr ""
 
-#: class-fooevents-calendar.php:2449 templates/calendar-options.php:65
+#: class-fooevents-calendar.php:2550 templates/calendar-options.php:65
 msgid "Events list theme"
 msgstr ""
 
-#: class-fooevents-calendar.php:2456 templates/calendar-options.php:69
+#: class-fooevents-calendar.php:2557 templates/calendar-options.php:69
 msgid "Light Card"
 msgstr ""
 
-#: class-fooevents-calendar.php:2457 templates/calendar-options.php:70
+#: class-fooevents-calendar.php:2558 templates/calendar-options.php:70
 msgid "Dark Card"
 msgstr ""
 
-#: class-fooevents-calendar.php:2459
+#: class-fooevents-calendar.php:2560
 msgid "Selects events list theme to be used on Wordpress frontend."
 msgstr ""
 
@@ -159,52 +175,52 @@ msgstr ""
 msgid "A calendar or list view of your site's Events."
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:152
+#: classes/class-fooevents-calendar-widget.php:194
 msgid "Title"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:156
+#: classes/class-fooevents-calendar-widget.php:198
 msgid "Layout Type"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:161
+#: classes/class-fooevents-calendar-widget.php:203
 #: templates/calendar-options.php:14 templates/calendar-options.php:30
 msgid "Calendar"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:162
+#: classes/class-fooevents-calendar-widget.php:204
 msgid "List view"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:167
+#: classes/class-fooevents-calendar-widget.php:209
 msgid "Default date of calendar view"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:168
+#: classes/class-fooevents-calendar-widget.php:210
 msgid "Example: 2016-09-01"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:169
+#: classes/class-fooevents-calendar-widget.php:211
 msgid "If empty, calendar will default to current date."
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:174
+#: classes/class-fooevents-calendar-widget.php:216
 msgid "Number of events to display"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:178
+#: classes/class-fooevents-calendar-widget.php:220
 msgid "Sort"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:181
+#: classes/class-fooevents-calendar-widget.php:223
 msgid "Current"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:183
+#: classes/class-fooevents-calendar-widget.php:225
 msgid "ASC"
 msgstr ""
 
-#: classes/class-fooevents-calendar-widget.php:184
+#: classes/class-fooevents-calendar-widget.php:226
 msgid "DESC"
 msgstr ""
 

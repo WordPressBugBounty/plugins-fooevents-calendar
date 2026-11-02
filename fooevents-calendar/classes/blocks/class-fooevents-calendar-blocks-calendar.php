@@ -63,6 +63,12 @@ class FooEvents_Calendar_Blocks_Calendar {
 	 */
 	public function output_calendar( $attributes ) {
 
+		if ( ! is_array( $attributes ) ) {
+
+			$attributes = array();
+
+		}
+
 		if ( isset( $attributes['defaultView'] ) && '' === $attributes['defaultView'] ) {
 
 			unset( $attributes['defaultView'] );
@@ -71,20 +77,44 @@ class FooEvents_Calendar_Blocks_Calendar {
 
 		if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && is_product() ) {
 
+			if ( ! isset( $attributes['productIDs'] ) || ! is_array( $attributes['productIDs'] ) ) {
+
+				$attributes['productIDs'] = array();
+
+			}
+
 			$attributes['productIDs'][] = get_the_ID();
 
 		}
 
 		if ( isset( $attributes['productIDs'] ) ) {
 
-			$attributes['post'] = implode( ',', $attributes['productIDs'] );
+			if ( is_array( $attributes['productIDs'] ) ) {
+
+				$attributes['productIDs'] = array_map( 'absint', $attributes['productIDs'] );
+				$attributes['productIDs'] = array_filter( $attributes['productIDs'] );
+				$attributes['post']       = implode( ',', $attributes['productIDs'] );
+
+			}
+
 			unset( $attributes['productIDs'] );
 
 		}
 
 		if ( isset( $attributes['hashtags'] ) ) {
 
-			$attributes['include_cat'] = implode( ',', $attributes['hashtags'] );
+			if ( is_array( $attributes['hashtags'] ) ) {
+
+				$hashtags = array_map( 'sanitize_text_field', $attributes['hashtags'] );
+				$hashtags = array_filter( $hashtags );
+
+				if ( ! empty( $hashtags ) ) {
+
+					$attributes['include_cat'] = implode( ',', $hashtags );
+
+				}
+			}
+
 			unset( $attributes['hashtags'] );
 
 		}

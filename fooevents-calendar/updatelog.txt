@@ -2,6 +2,11 @@
 UPDATE LOG
 
 ------------------
+2.0.6
+FIXED: Various security updates.
+FIXED: Various small bugs and performance updates.
+TESTED ON: WordPress 7.1.4 and WooCommerce 11.2.1.
+
 2.0.5
 FIXED: Date format event listing bug.
 FIXED: Various small bugs and performance updates.

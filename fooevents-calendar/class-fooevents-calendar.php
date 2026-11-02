@@ -163,6 +163,14 @@ class FooEvents_Calendar {
 			wp_enqueue_script( 'fooevents-calendar-moment', $this->config->scriptsPath . 'moment.js', array( 'jquery' ), '2.29.3', false );
 		}
 
+		wp_localize_script(
+			'fooevents-calendar-admin-script',
+			'fooeventsCalendarAdmin',
+			array(
+				'eventbriteImportNonce' => wp_create_nonce( 'fooevents_eventbrite_import_nonce' ),
+			)
+		);
+
 	}
 
 	/**
@@ -416,13 +424,21 @@ class FooEvents_Calendar {
 
 		$global_fooevents_calendar_post_types = get_option( 'globalFooEventsCalendarPostTypes' );
 
-		if ( empty( $global_fooevents_calendar_post_types ) ) {
+		if ( empty( $global_fooevents_calendar_post_types ) || ! is_array( $global_fooevents_calendar_post_types ) ) {
 
 			$global_fooevents_calendar_post_types = array( 'post', 'page' );
 
 		}
 
 		foreach ( $global_fooevents_calendar_post_types as $post_type ) {
+
+			$post_type = sanitize_key( $post_type );
+
+			if ( empty( $post_type ) ) {
+
+				continue;
+
+			}
 
 			add_meta_box(
 				'fooevents-event-meta-box123',
@@ -444,6 +460,18 @@ class FooEvents_Calendar {
 	public function display_metabox() {
 
 		global $post;
+
+		if ( empty( $post ) || empty( $post->ID ) ) {
+
+			return;
+
+		}
+
+		if ( ! $this->user_can_edit_calendar_events() || ! current_user_can( 'edit_post', $post->ID ) ) {
+
+			return;
+
+		}
 
 		$event_date                  = get_post_meta( $post->ID, 'WooCommerceEventsDate', true );
 		$event_event                 = get_post_meta( $post->ID, 'WooCommerceEventsEvent', true );
@@ -596,6 +624,12 @@ class FooEvents_Calendar {
 		}
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+
+			return;
+
+		}
+
+		if ( ! $this->user_can_edit_calendar_events() ) {
 
 			return;
 
@@ -894,6 +928,12 @@ class FooEvents_Calendar {
 
 		}
 
+		if ( ! $this->user_can_edit_calendar_events() || ! current_user_can( 'edit_post', $post_id ) ) {
+
+			return;
+
+		}
+
 		$error = '';
 		if ( ! session_id() ) {
 
@@ -909,7 +949,14 @@ class FooEvents_Calendar {
 
 		}
 
-		if ( isset( $_POST['WooCommerceEventsEndDate'] ) && empty( $_POST['WooCommerceEventsEndDate'] ) && $_POST['WooCommerceEventsType'] !== 'single' ) {
+		$event_type = 'single';
+		if ( isset( $_POST['WooCommerceEventsType'] ) ) {
+
+			$event_type = sanitize_text_field( wp_unslash( $_POST['WooCommerceEventsType'] ) );
+
+		}
+
+		if ( isset( $_POST['WooCommerceEventsEndDate'] ) && empty( $_POST['WooCommerceEventsEndDate'] ) && 'single' !== $event_type ) {
 
 			$errors[] = __( 'Event end date required for Eventbrite.', 'fooevents-calendar' );
 
@@ -970,7 +1017,7 @@ class FooEvents_Calendar {
 		$event_date = $event_date . 'Z';
 
 		$event_end_date = '';
-		if ( ! empty( $_POST['WooCommerceEventsEndDate'] ) && $_POST['WooCommerceEventsType'] !== 'single' ) {
+		if ( ! empty( $_POST['WooCommerceEventsEndDate'] ) && 'single' !== $event_type ) {
 
 			$event_end_date = sanitize_text_field( wp_unslash( $_POST['WooCommerceEventsEndDate'] ) );
 
@@ -1094,15 +1141,49 @@ class FooEvents_Calendar {
 	 */
 	public function import_events_from_eventbrite() {
 
+		if ( ! $this->user_can_edit_calendar_events() ) {
+
+			wp_die( esc_attr( __( 'You do not have sufficient permissions to access this page.' ) ), 403 );
+
+		}
+
+		if ( ! isset( $_POST['nonce'] ) ) {
+
+			wp_die( esc_attr( __( 'Security check failed.', 'fooevents-calendar' ) ), 400 );
+
+		}
+
+		$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
+
+		if ( ! wp_verify_nonce( $nonce, 'fooevents_eventbrite_import_nonce' ) ) {
+
+			wp_die( esc_attr( __( 'Security check failed.', 'fooevents-calendar' ) ), 403 );
+
+		}
+
 		$eventbrite_token = get_option( 'globalFooEventsEventbriteToken' );
+
+		if ( empty( $eventbrite_token ) ) {
+
+			echo esc_attr( __( 'Eventbrite token not configured.', 'fooevents-calendar' ) );
+			exit();
+
+		}
 
 		$client = new HttpClient( $eventbrite_token );
 
 		$user = $client->get( '/users/me/' );
 
-		if ( ! empty( $user['error'] ) ) {
+		if ( empty( $user['id'] ) || ! empty( $user['error'] ) ) {
 
-			echo esc_attr( $user['error_description'] );
+			if ( ! empty( $user['error_description'] ) ) {
+
+				echo esc_attr( $user['error_description'] );
+				exit();
+
+			}
+
+			echo esc_attr( __( 'Unable to fetch Eventbrite user details.', 'fooevents-calendar' ) );
 			exit();
 
 		}
@@ -1112,9 +1193,18 @@ class FooEvents_Calendar {
 		);
 
 		$organizations = $client->get_user_organizations( $user['id'], $event_params );
+
+		if ( empty( $organizations['organizations'][0]['id'] ) ) {
+
+			echo esc_attr( __( 'Unable to fetch Eventbrite organization details.', 'fooevents-calendar' ) );
+			exit();
+
+		}
+
 		$events        = $client->get_user_owned_events( $organizations['organizations'][0]['id'], $event_params );
 
 		$local_eventbrite_events = $this->get_local_eventbrite_events();
+		$import_post_status      = $this->get_eventbrite_import_post_status();
 
 		$added_events   = 0;
 		$updated_events = 0;
@@ -1123,7 +1213,7 @@ class FooEvents_Calendar {
 
 			foreach ( $events['events'] as $event ) {
 
-				if ( ! in_array( $event['id'], $local_eventbrite_events ) ) {
+				if ( ! in_array( $event['id'], $local_eventbrite_events, true ) ) {
 
 					$origin_start_date = $event['start']['local'];
 					$origin_end_date   = $event['end']['local'];
@@ -1169,7 +1259,7 @@ class FooEvents_Calendar {
 
 						$post = array(
 							'post_content' => $content,
-							'post_status'  => 'publish',
+							'post_status'  => $import_post_status,
 							'post_title'   => $event['name']['text'],
 							'post_type'    => 'fe_eventbrite_event',
 						);
@@ -1186,7 +1276,7 @@ class FooEvents_Calendar {
 						$post = array(
 							'ID'           => $origin->ID,
 							'post_content' => $content,
-							'post_status'  => 'publish',
+							'post_status'  => $import_post_status,
 							'post_title'   => $event['name']['text'],
 							'post_type'    => 'fe_eventbrite_event',
 						);
@@ -1223,6 +1313,12 @@ class FooEvents_Calendar {
 
 		$calendar_post_types = get_option( 'globalFooEventsCalendarPostTypes' );
 
+		if ( empty( $calendar_post_types ) || ! is_array( $calendar_post_types ) ) {
+
+			$calendar_post_types = array( 'post', 'page', 'product', 'fe_eventbrite_event' );
+
+		}
+
 		$events_query = new WP_Query(
 			array(
 				'post_type'      => $calendar_post_types,
@@ -1244,7 +1340,12 @@ class FooEvents_Calendar {
 			foreach ( $events as $event ) {
 
 				$eventbrite_id = get_post_meta( $event->ID, 'WooCommerceEventsEventbriteID', true );
-				$return_ids[]  = $eventbrite_ids;
+
+				if ( ! empty( $eventbrite_id ) ) {
+
+					$return_ids[] = (string) $eventbrite_id;
+
+				}
 
 			}
 		}
@@ -2923,6 +3024,46 @@ class FooEvents_Calendar {
 		}
 
 		return $key;
+	}
+
+	/**
+	 * Check if current user can edit calendar events.
+	 *
+	 * @return bool
+	 */
+	private function user_can_edit_calendar_events() {
+
+		if ( current_user_can( 'edit_event_magic_tickets' ) ) {
+
+			return true;
+
+		}
+
+		if ( current_user_can( 'publish_fooevents_calendar' ) ) {
+
+			return true;
+
+		}
+
+		return false;
+	}
+
+	/**
+	 * Determine imported Eventbrite post status based on publish capability.
+	 *
+	 * @return string
+	 */
+	private function get_eventbrite_import_post_status() {
+
+		$post_type = get_post_type_object( 'fe_eventbrite_event' );
+
+		if ( ! empty( $post_type->cap->publish_posts ) && current_user_can( $post_type->cap->publish_posts ) ) {
+
+			return 'publish';
+
+		}
+
+		return 'draft';
 	}
 
 	/**
